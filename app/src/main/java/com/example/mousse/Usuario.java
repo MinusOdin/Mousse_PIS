@@ -1,4 +1,4 @@
-package com.example.mousse.ui;
+package com.example.mousse;
 
 public class Usuario {
     private String nombre;

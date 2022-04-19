@@ -1,4 +1,4 @@
-package com.example.mousse.ui;
+package com.example.mousse;
 
 import java.util.ArrayList;
 
