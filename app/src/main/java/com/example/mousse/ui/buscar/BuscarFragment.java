@@ -1,4 +1,4 @@
-package com.example.mousse.ui.dashboard;
+package com.example.mousse.ui.buscar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+public class BuscarFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        BuscarViewModel buscarViewModel =
+                new ViewModelProvider(this).get(BuscarViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        buscarViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -1,4 +1,4 @@
-package com.example.mousse.ui.notifications;
+package com.example.mousse.ui.crear_receta;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.databinding.FragmentNotificationsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class CrearRecetaFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        CrearRecetaViewModel crearRecetaViewModel =
+                new ViewModelProvider(this).get(CrearRecetaViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        crearRecetaViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

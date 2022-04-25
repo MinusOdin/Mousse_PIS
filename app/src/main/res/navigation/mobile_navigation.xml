@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.mousse.ui.dashboard.DashboardFragment"
+        android:name="com.example.mousse.ui.buscar.BuscarFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.mousse.ui.notifications.NotificationsFragment"
+        android:name="com.example.mousse.ui.crear_receta.CrearRecetaFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment android:id="@+id/placeholder" />

@@ -3,19 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/editar_perfil.xml" value="0.25" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_dashboard.xml" value="0.19610507246376813" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_notifications.xml" value="0.19610507246376813" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_perfil.xml" value="0.19610507246376813" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/login.xml" value="0.19610507246376813" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/receptaenllista.xml" value="0.1956521739130435" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/usuario_view.xml" value="0.33" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/usuarios_perfil.xml" value="0.25" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/usuarios_view.xml" value="0.19610507246376813" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
-        <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/menu/sub_menu_usuarios.xml" value="0.22" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/creacio_receptes.xml" value="0.22" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/editar_perfil.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/fragment_dashboard.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/fragment_home.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/fragment_notifications.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/fragment_perfil.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/login.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/pantalla_de_recomenacions.xml" value="0.18" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/recepta.xml" value="0.2" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/recepta_pas_a_pas.xml" value="0.25" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/receptaenllista.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/layout/registrarse.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sara/Documents/Uni/Segundo/PIS/Mousse_PIS_2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.492" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.492" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.492" />
