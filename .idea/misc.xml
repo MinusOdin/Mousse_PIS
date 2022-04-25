@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Maria/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/activity_main.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Maria/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/creacio_receptes.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Maria/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_home.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/Maria/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_perfil.xml" value="0.20018115942028986" />
+        <entry key="..\:/Users/Maria/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/pantalla_de_recomenacions.xml" value="0.20878623188405798" />
         <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/editar_perfil.xml" value="0.25" />
         <entry key="..\:/Users/Raquel/AndroidStudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_dashboard.xml" value="0.19610507246376813" />
