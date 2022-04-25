@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "955683159605",
+    "project_id": "mousse-a0a7d",
+    "storage_bucket": "mousse-a0a7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955683159605:android:a1c595ccc0d7d672f4fb7c",
+        "android_client_info": {
+          "package_name": "com.example.mousse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955683159605-3c692crb72bkpjcmfk3cnt8bvu3m4pgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLCIoGgY5Df5tFRDjsslPTn9kNbSzQD2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955683159605-3c692crb72bkpjcmfk3cnt8bvu3m4pgt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
