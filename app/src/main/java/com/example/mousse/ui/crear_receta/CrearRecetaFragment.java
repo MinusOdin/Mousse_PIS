@@ -10,28 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.mousse.databinding.FragmentNotificationsBinding;
+import com.example.mousse.R;
 
 public class CrearRecetaFragment extends Fragment {
-
-    private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CrearRecetaViewModel crearRecetaViewModel =
                 new ViewModelProvider(this).get(CrearRecetaViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.creacio_receptes, container, false);
 
-        final TextView textView = binding.textNotifications;
-        crearRecetaViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }
