@@ -21,7 +21,7 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
-        View root = inflater.inflate(R.layout.pantalla_de_recomenacions, container, false);
+        View root = inflater.inflate(R.layout.fragment_pantalladerecomenacions, container, false);
         return root;
     }
 
