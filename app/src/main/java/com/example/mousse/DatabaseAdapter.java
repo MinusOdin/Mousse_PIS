@@ -28,7 +28,7 @@ public class DatabaseAdapter extends Activity {
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
-    private String uid;
+
 
 
     public static vmInterface listener;
@@ -38,7 +38,7 @@ public class DatabaseAdapter extends Activity {
         this.listener = listener;
         databaseAdapter = this;
         FirebaseFirestore.setLoggingEnabled(true);
-        uid = initFirebase();
+        initFirebase();
     }
 
 
@@ -47,15 +47,8 @@ public class DatabaseAdapter extends Activity {
         void setToast(String t);
     }
 
-    public String initFirebase(){
+    public void initFirebase(){
         user = mAuth.getCurrentUser();
-        String uid = "";
-
-        if (user != null) {
-            uid = user.getUid();
-        }
-
-        return uid;
     }
 
 
@@ -70,7 +63,7 @@ public class DatabaseAdapter extends Activity {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(document.getString("user") == uid){
+                                if(user.getUid() == document.getString("userid")){
                                     Log.d(TAG, document.getId() + " => " + document.getData());
                                     retrieved_recetas.add(new Receta( document.getString("titulo"), document.getString("descripcion") ) );
                                 }
@@ -90,7 +83,7 @@ public class DatabaseAdapter extends Activity {
         // Create a new user with a first and last name
         Map<String, Object> note = new HashMap<>();
         note.put("nombre", nombre);
-        note.put("user", uid);
+        note.put("user", user.getUid());
         note.put("descripcion", descripcion);
 
         Log.d(TAG, "saveDocument");
@@ -112,18 +105,35 @@ public class DatabaseAdapter extends Activity {
     }
 
     public void saveUser( String email, String password) {
-    mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            uid = user.getUid();
+                            listener.setToast("Register succed.");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            listener.setToast("Register failed.");
+                        }
+                    }
+                });
+    }
+
+    public void login( String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            listener.setToast("Authentication succes.");
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
                             listener.setToast("Authentication failed.");
                         }
                     }

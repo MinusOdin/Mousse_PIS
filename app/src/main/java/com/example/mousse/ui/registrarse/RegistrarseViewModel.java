@@ -18,22 +18,17 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<ArrayList<Usuario>> mUsuarios;
     private final MutableLiveData<String> mToast;
+    private final DatabaseAdapter da;
 
     public RegistrarseViewModel() {
         mRecetas = new MutableLiveData<>();
         mUsuarios = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        DatabaseAdapter da = new DatabaseAdapter(this);
+        da = new DatabaseAdapter(this);
     }
 
     public void registrarUsuario(String email, String contraseña) {
-        Usuario usuario = new Usuario(email, contraseña);
-        if (usuario != null) {
-            mUsuarios.getValue().add(usuario);
-            //Inform observer.
-            mUsuarios.setValue(mUsuarios.getValue());
-            usuario.saveUsuario();
-        }
+            da.saveUser(email, contraseña);
     }
 
     public LiveData<String> getToast(){

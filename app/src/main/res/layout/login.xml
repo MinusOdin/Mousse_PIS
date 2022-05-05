@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="373dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,22 +49,22 @@
         <EditText
             android:id="@+id/editTextTextContraseña"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="94dp"
             android:ems="10"
             android:hint="Contrasenya"
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Log In" />
 
         <Button
             android:id="@+id/btnRegistrarse"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="188dp"
             android:text="Resgistrarse" />
 
     </LinearLayout>

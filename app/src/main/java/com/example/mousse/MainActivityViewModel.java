@@ -37,7 +37,8 @@ public class MainActivityViewModel extends AndroidViewModel implements DatabaseA
     public void addReceta(String name, String descripcion){
         Receta receta = new Receta(name, descripcion);
         if (receta != null) {
-            mRecetas.getValue().add(receta);
+            ArrayList<Receta> v = mRecetas.getValue();
+            v.add(receta);
             //Inform observer.
             mRecetas.setValue(mRecetas.getValue());
             receta.saveReceta();
