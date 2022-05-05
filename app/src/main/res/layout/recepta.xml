@@ -35,7 +35,7 @@
                         android:layout_width="235dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Usuari"
+                        android:text="Usuario"
                         android:textSize="20sp" />
 
                     <ImageButton
@@ -60,30 +60,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Comentar" />
+                    android:text="Comentar"
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Cuinar Pas a Pas" />
+                    android:text="Cocinar Paso a Paso"
+                    android:textSize="13dp" />
 
                 <ToggleButton
                     android:id="@+id/toggleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Feta"
-                    android:textOff="No feta"
-                    android:textOn="Feta" />
+                    android:text="Hecha"
+                    android:textOff="No hecha"
+                    android:textOn="Hecha"
+                    android:textSize="13dp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textHome"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
-                android:text="Nom de la Recepta"
+                android:text="Nombre de la Receta"
                 android:textSize="30sp" />
 
             <TextView
@@ -103,7 +106,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ingredients"
+                    android:text="Ingredientes"
                     android:textSize="30sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -123,7 +126,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Passos a segui:"
+                    android:text="Pasos a seguir:"
                     android:textSize="30sp" />
 
                 <TextView

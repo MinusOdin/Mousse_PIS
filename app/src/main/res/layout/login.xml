@@ -43,7 +43,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nom de Usuari" />
+                android:hint="Nombre de Usuario" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Contrasenya"
+            android:hint="Contraseña"
             android:inputType="textPassword" />
 
         <Button
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="Log In" />
+            android:text="Iniciar sesión" />
 
         <Button
             android:id="@+id/button6"
