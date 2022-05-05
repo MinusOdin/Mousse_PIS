@@ -8,22 +8,24 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.mousse.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_pantalla_de_recomendaciones" />
+        android:label="@string/title_home"
+        tools:layout="@layout/pantalla_de_recomenacions" />
 
     <fragment
-        android:id="@+id/navigation_buscador"
+        android:id="@+id/navigation_dashboard"
         android:name="com.example.mousse.ui.buscar.BuscarFragment"
+        android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_crear_receta"
+        android:id="@+id/navigation_notifications"
         android:name="com.example.mousse.ui.crear_receta.CrearRecetaFragment"
+        android:label="@string/title_notifications"
         tools:layout="@layout/creacio_receptes" />
 
     <fragment
-        android:id="@+id/perfil"
-        android:name="com.example.mousse.ui.profile.ProfileFragment"
+        android:id="@+id/navigation_profile"
+        android:name="com.example.mousse.ui.perfil.PerfilFragment"
+        android:label="@string/title_perfil"
         tools:layout="@layout/usuarios_perfil" />
-
-    <fragment android:id="@+id/placeholder" />
 </navigation>

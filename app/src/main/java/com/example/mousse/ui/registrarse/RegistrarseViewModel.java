@@ -1,43 +1,38 @@
-package com.example.mousse.ui.crear_receta;
+package com.example.mousse.ui.registrarse;
+
+import android.content.Intent;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mousse.DatabaseAdapter;
+import com.example.mousse.MainActivity;
 import com.example.mousse.Receta;
 import com.example.mousse.Usuario;
 
 import java.util.ArrayList;
 
-public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.vmInterface {
+public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.vmInterface{
 
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
+    private final MutableLiveData<ArrayList<Usuario>> mUsuarios;
     private final MutableLiveData<String> mToast;
 
-    public CrearRecetaViewModel() {
+    public RegistrarseViewModel() {
         mRecetas = new MutableLiveData<>();
+        mUsuarios = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
         DatabaseAdapter da = new DatabaseAdapter(this);
-        da.getCollectionByUser();
     }
 
-    //public getter. Not mutable , read-only
-    public LiveData<ArrayList<Receta>> getRecetas(){
-        return mRecetas;
-    }
-
-    public Receta getReceta(int idx){
-        return mRecetas.getValue().get(idx);
-    }
-
-    public void addReceta(String name, String descripcion){
-        Receta receta = new Receta(name, descripcion);
-        if (receta != null) {
-            mRecetas.getValue().add(receta);
+    public void registrarUsuario(String email, String contraseña) {
+        Usuario usuario = new Usuario(email, contraseña);
+        if (usuario != null) {
+            mUsuarios.getValue().add(usuario);
             //Inform observer.
-            mRecetas.setValue(mRecetas.getValue());
-            receta.saveReceta();
+            mUsuarios.setValue(mUsuarios.getValue());
+            usuario.saveUsuario();
         }
     }
 
@@ -50,7 +45,10 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
         mRecetas.setValue(recetas);
     }
 
+    @Override
     public void setToast(String t) {
         mToast.setValue(t);
     }
+
 }
+

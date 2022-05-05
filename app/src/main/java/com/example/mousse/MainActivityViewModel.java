@@ -1,25 +1,28 @@
-package com.example.mousse.ui.crear_receta;
+package com.example.mousse;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
-import com.example.mousse.DatabaseAdapter;
-import com.example.mousse.Receta;
-import com.example.mousse.Usuario;
 
 import java.util.ArrayList;
 
-public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.vmInterface {
+
+public class MainActivityViewModel extends AndroidViewModel implements DatabaseAdapter.vmInterface{
 
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<String> mToast;
 
-    public CrearRecetaViewModel() {
+
+    public static final String TAG = "ViewModel";
+
+    //Constructor
+    public MainActivityViewModel(Application application){
+        super(application);
         mRecetas = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
         DatabaseAdapter da = new DatabaseAdapter(this);
-        da.getCollectionByUser();
     }
 
     //public getter. Not mutable , read-only
@@ -45,6 +48,7 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
         return mToast;
     }
 
+    //communicates user inputs and updates the result in the viewModel
     @Override
     public void setCollection(ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);
@@ -54,3 +58,5 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
         mToast.setValue(t);
     }
 }
+
+

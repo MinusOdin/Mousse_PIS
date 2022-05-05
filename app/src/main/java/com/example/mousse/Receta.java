@@ -1,5 +1,7 @@
 package com.example.mousse;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class Receta {
@@ -7,15 +9,24 @@ public class Receta {
     private String nombre;
     private ArrayList<String> ingredientes;
     private ArrayList<String> hashtags;
-    private Usuario usuario;
+    private String idusuario;
+    private String descripcion;
+    private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
+
     //foto
 
-    public Receta(ArrayList<String> pasos, String nombre, ArrayList<String> ingredientes, ArrayList<String> hashtags, Usuario usuario) {
+    public Receta(ArrayList<String> pasos, String nombre, ArrayList<String> ingredientes, ArrayList<String> hashtags, String idusuario, String descripcion) {
         this.pasos = pasos;
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.hashtags = hashtags;
-        this.usuario = usuario;
+        this.idusuario = idusuario;
+        this.descripcion = descripcion;
+    }
+
+    public Receta( String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public ArrayList<String> getPasos() {
@@ -46,12 +57,16 @@ public class Receta {
         this.pasos.add(paso);
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getIdUsuario() { return idusuario; }
+
+    public void setUsuario(String idusuario) {
+        this.idusuario = idusuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public String getDescripcion(){ return descripcion; }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public ArrayList<String> getHashtags() {
@@ -60,5 +75,11 @@ public class Receta {
 
     public void setHashtags(ArrayList<String> hashtags) {
         this.hashtags = hashtags;
+    }
+
+    public void saveReceta() {
+
+        Log.d("saveReceta", "saveReceta-> saveDocument");
+        adapter.saveReceta(this.nombre, this.descripcion);
     }
 }

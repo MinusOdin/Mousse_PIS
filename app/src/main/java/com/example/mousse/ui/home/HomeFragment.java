@@ -12,14 +12,21 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.R;
 
+
 public class HomeFragment extends Fragment {
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        HomeViewModel homeViewModel =
+                new ViewModelProvider(this).get(HomeViewModel.class);
 
-        View root = inflater.inflate(R.layout.fragment_pantalla_de_recomendaciones, container, false);
+        View root = inflater.inflate(R.layout.pantalla_de_recomenacions, container, false);
         return root;
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

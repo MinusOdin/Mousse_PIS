@@ -7,17 +7,17 @@
         android:title="" />
 
     <item
-        android:id="@+id/navigation_buscador"
+        android:id="@+id/navigation_dashboard"
         android:icon="@drawable/__85921_search_instagram_search_icon_vector"
         android:title="" />
 
     <item
-        android:id="@+id/navigation_crear_receta"
+        android:id="@+id/navigation_notifications"
         android:icon="@drawable/plus_png_icon_free_download_163247"
         android:title="" />
 
     <item
-        android:id="@+id/perfil"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/png_transparent_toque_chef_s_uniform_computer_icons_chef_icon"
         android:title="" />
 
