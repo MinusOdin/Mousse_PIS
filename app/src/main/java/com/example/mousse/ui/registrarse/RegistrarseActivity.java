@@ -1,4 +1,4 @@
-package com.example.mousse.ui.login;
+package com.example.mousse.ui.registrarse;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,35 +14,28 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.MainActivity;
 import com.example.mousse.R;
-import com.example.mousse.ui.registrarse.RegistrarseActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegistrarseActivity extends AppCompatActivity {
     Button btnregistrarse;
-    Button btnlogin;
     EditText editTextEmail;
     EditText editTextContraseña;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LoginViewModel loginViewModel =
-                new ViewModelProvider(this).get(LoginViewModel.class);
+        RegistrarseViewModel registrarseViewModel =
+                new ViewModelProvider(this).get(RegistrarseViewModel.class);
 
-        setContentView(R.layout.login);
+        setContentView(R.layout.registrarse);
 
         btnregistrarse = findViewById(R.id.btnRegistrarse);
         btnregistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegistrarseActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnlogin = findViewById(R.id.btnLogin);
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                editTextEmail = findViewById(R.id.editTextTextEmail);
+                editTextContraseña = findViewById(R.id.editTextTextContraseña);
+                registrarseViewModel.registrarUsuario(editTextEmail.getText().toString(), editTextContraseña.getText().toString());
+                Intent intent = new Intent(RegistrarseActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintHeight="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.registrarse.RegistrarseActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,83 +18,34 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:height="5dp"
-            android:maxHeight="5dp"
-            android:minHeight="1dp"
+            android:layout_height="4dp"
+            android:layout_weight="1"
             android:text="Registrar"
             android:textAlignment="center"
-            android:textSize="24sp"
-            app:lineHeight="1dp" />
+            android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress3"
+            android:id="@+id/editTextTextEmail"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:height="1dp"
-            android:elegantTextHeight="false"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10"
             android:hint="e-mail"
-            android:inputType="textEmailAddress"
-            android:maxHeight="20dp"
-            android:minHeight="1dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-        </LinearLayout>
+            android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/editTextTextContraseña"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="202dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/editTextTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="Contraseña"
+            android:hint="Contrassenya"
             android:inputType="textPassword" />
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btnRegistrarse"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"></LinearLayout>
-
-        <EditText
-            android:id="@+id/editTextTextPassword2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="Repetir Contraseña"
-            android:inputType="textPassword" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="184dp"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Resgistrar" />
-        </LinearLayout>
+            android:layout_height="115dp"
+            android:text="Resgistrar" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

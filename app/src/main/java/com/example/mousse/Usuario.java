@@ -1,13 +1,16 @@
 package com.example.mousse;
 
+import android.util.Log;
+
 public class Usuario {
     private String nombre;
-    private String mail;
+    private String email;
     private String contraseña;
+    private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
 
-    public Usuario(String nombre, String mail, String contraseña) {
+    public Usuario(String email, String contraseña) {
         this.nombre = nombre;
-        this.mail = mail;
+        this.email = email;
         this.contraseña = contraseña;
     }
 
@@ -19,11 +22,17 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
     public String getContraseña() {
         return contraseña;
+    }
+
+    public void saveUsuario() {
+
+        Log.d("saveUsuario", "saveUsuario-> saveUser");
+        adapter.saveUser(this.email, this.contraseña);
     }
 }

@@ -3,14 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.crear_receta.CrearRecetaFragment">
 
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="729dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,21 +25,21 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Cancelar" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/btnRegistrarse"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:text="Guardar borrador" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/btnpublicar"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_weight="1"
@@ -53,6 +60,7 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputNombreReceta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nombre"
@@ -70,6 +78,7 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputHashtagsReceta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Hashtags"
@@ -77,7 +86,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textViewIngredientsReceta"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:text="Ingredientes"
@@ -88,6 +97,7 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputIngredientsReceta"
                         android:layout_width="match_parent"
                         android:layout_height="124dp"
                         android:hint="·"
@@ -95,7 +105,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textViewDescripcionReceta"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
                     android:text="Pasos a seguir"
@@ -106,6 +116,7 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputPasReceta"
                         android:layout_width="match_parent"
                         android:layout_height="83dp"
                         android:hint="1er paso"
