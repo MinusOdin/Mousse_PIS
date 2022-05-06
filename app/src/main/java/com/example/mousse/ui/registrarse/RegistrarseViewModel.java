@@ -1,6 +1,5 @@
 package com.example.mousse.ui.registrarse;
 
-import android.content.Intent;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -8,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mousse.DatabaseAdapter;
-import com.example.mousse.MainActivity;
 import com.example.mousse.Receta;
 import com.example.mousse.Usuario;
 
@@ -19,14 +17,15 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<ArrayList<Usuario>> mUsuarios;
     private final MutableLiveData<String> mToast;
-    private final MutableLiveData<Boolean> mRegistrat = new MutableLiveData<>();
-    public LiveData<Boolean> registrat = mRegistrat;
+    private final MutableLiveData<Boolean> mSuccesfull;
+
     private final DatabaseAdapter da;
 
     public RegistrarseViewModel() {
         mRecetas = new MutableLiveData<>();
         mUsuarios = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
+        mSuccesfull = new MutableLiveData<>();
         da = new DatabaseAdapter(this);
     }
 
@@ -38,8 +37,12 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
         return mToast;
     }
 
+    public LiveData<Boolean> getSuccesfull(){
+        return mSuccesfull;
+    }
+
     @Override
-    public void setCollection(ArrayList<Receta> recetas) {
+    public void setCollection(  ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);
     }
 
@@ -49,8 +52,8 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
     }
 
     @Override
-    public void setRegistrat(boolean registrat) {
-        mRegistrat.setValue(registrat);
+    public void setSuccesfull(boolean succesfull) {
+        mSuccesfull.setValue(succesfull);
         Log.d("setRegistrat", "Si funciona");
     }
 

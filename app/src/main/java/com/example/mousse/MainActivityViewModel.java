@@ -60,7 +60,7 @@ public class MainActivityViewModel extends AndroidViewModel implements DatabaseA
     }
 
     @Override
-    public void setRegistrat(boolean registrat) {
+    public void setSuccesfull(boolean succesfull) {
 
     }
 }

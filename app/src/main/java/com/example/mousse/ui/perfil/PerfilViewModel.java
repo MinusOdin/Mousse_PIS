@@ -13,11 +13,15 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
 
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<String> mToast;
+    private final DatabaseAdapter da;
 
     public PerfilViewModel() {
         mRecetas = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        DatabaseAdapter da = new DatabaseAdapter(this);
+        da = new DatabaseAdapter(this);
+        da.getCollectionByUser();
+    }
+    public void init(){
         da.getCollectionByUser();
     }
 
@@ -55,7 +59,7 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
     }
 
     @Override
-    public void setRegistrat(boolean registrat) {
+    public void setSuccesfull(boolean succesfull) {
     }
 
 }

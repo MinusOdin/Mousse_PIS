@@ -45,7 +45,7 @@ public class DatabaseAdapter extends Activity {
     public interface vmInterface{
         void setCollection(ArrayList<Receta> recetas);
         void setToast(String t);
-        void setRegistrat(boolean registrat);
+        void setSuccesfull(boolean succesfull );
     }
 
     public void initFirebase(){
@@ -54,8 +54,9 @@ public class DatabaseAdapter extends Activity {
 
 
     public void getCollectionByUser(){
-        Log.d(TAG,"updateaudioCards");
-        DatabaseAdapter.db.collection("audioCards")
+        Log.d(TAG,"updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        DatabaseAdapter.db.collection("Recetas")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -64,10 +65,11 @@ public class DatabaseAdapter extends Activity {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(user.getUid() == document.getString("userid")){
+                                if(user.getUid() == document.getString("user")){
                                     Log.d(TAG, document.getId() + " => " + document.getData());
-                                    retrieved_recetas.add(new Receta( document.getString("titulo"), document.getString("descripcion") ) );
+                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion") ) );
                                 }
+                                else Log.d(TAG, "miss");
                             }
                             listener.setCollection(retrieved_recetas);
 
@@ -116,18 +118,18 @@ public class DatabaseAdapter extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             listener.setToast("Register succed.");
-                            listener.setRegistrat(true);
+                            listener.setSuccesfull(true);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             listener.setToast("Register failed.");
-                            listener.setRegistrat(false);
+                            listener.setSuccesfull(false);
                         }
                     }
                 });
     }
 
-    public void login( String email, String password) {
+    public void loginUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -136,10 +138,12 @@ public class DatabaseAdapter extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             listener.setToast("Authentication succes.");
+                            listener.setSuccesfull(true);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             listener.setToast("Authentication failed.");
+                            listener.setSuccesfull(false);
                         }
                     }
                 });

@@ -3,22 +3,16 @@ package com.example.mousse.ui.registrarse;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.MainActivity;
 import com.example.mousse.R;
-import com.example.mousse.Receta;
-
-import java.util.ArrayList;
 
 public class RegistrarseActivity extends AppCompatActivity {
     Button btnregistrarse;
@@ -38,16 +32,16 @@ public class RegistrarseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editTextEmail = findViewById(R.id.editTextTextEmail);
-                editTextContraseña = findViewById(R.id.editTextTextContraseña);
+                editTextContraseña = findViewById(R.id.editTextContraseñaLogin);
                 registrarseViewModel.registrarUsuario(editTextEmail.getText().toString(), editTextContraseña.getText().toString());
             }
         });
 
-        registrarseViewModel.registrat.observe(this, new Observer<Boolean>() {
+        registrarseViewModel.getSuccesfull().observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(Boolean registrat) {
+            public void onChanged(Boolean succesfull) {
                 Log.d("observerregistrat:fora del if", "Si funciona");
-                if(registrat){
+                if(succesfull){
                     Log.d("observerregistrat:dins de lif(registrat)", "Si funciona");
                     Intent intent = new Intent(RegistrarseActivity.this, MainActivity.class);
                     startActivity(intent);

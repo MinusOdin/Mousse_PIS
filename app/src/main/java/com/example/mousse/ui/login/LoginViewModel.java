@@ -15,22 +15,19 @@ public class LoginViewModel extends ViewModel implements DatabaseAdapter.vmInter
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<ArrayList<Usuario>> mUsuarios;
     private final MutableLiveData<String> mToast;
+    private final MutableLiveData<Boolean> mSuccesfull;
+    private final DatabaseAdapter da;
 
     public LoginViewModel() {
         mRecetas = new MutableLiveData<>();
         mUsuarios = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        DatabaseAdapter da = new DatabaseAdapter(this);
+        mSuccesfull = new MutableLiveData<>();
+        da = new DatabaseAdapter(this);
     }
 
-    public void registrarUsuario(String email, String contraseña) {
-        Usuario usuario = new Usuario(email, contraseña);
-        if (usuario != null) {
-            mUsuarios.getValue().add(usuario);
-            //Inform observer.
-            mUsuarios.setValue(mUsuarios.getValue());
-            usuario.saveUsuario();
-        }
+    public void loginUsuario(String email, String contraseña) {
+            da.loginUser(email, contraseña);
     }
 
     public LiveData<String> getToast(){
@@ -48,8 +45,11 @@ public class LoginViewModel extends ViewModel implements DatabaseAdapter.vmInter
     }
 
     @Override
-    public void setRegistrat(boolean registrat) {
-
+    public void setSuccesfull(boolean succesfull) {
+        mSuccesfull.setValue(succesfull);
     }
 
+    public LiveData<Boolean> getSuccesfull() {
+        return mSuccesfull;
+    }
 }

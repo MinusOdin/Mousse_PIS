@@ -49,7 +49,7 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
     }
 
     @Override
-    public void setRegistrat(boolean registrat) {
+    public void setSuccesfull(boolean succesfull) {
 
     }
 }

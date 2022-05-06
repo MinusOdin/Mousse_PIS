@@ -2,14 +2,13 @@ package com.example.mousse.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.MainActivity;
@@ -42,8 +41,24 @@ public class LoginActivity extends AppCompatActivity {
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                editTextEmail = findViewById(R.id.editTextEmailLogin);
+                editTextContraseña = findViewById(R.id.editTextContraseñaLogin);
+                loginViewModel.loginUsuario(editTextEmail.getText().toString(), editTextContraseña.getText().toString());
+            }
+        });
+
+        loginViewModel.getSuccesfull().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean succesfull) {
+                Log.d("observerregistrat:fora del if", "Si funciona");
+                if(succesfull){
+                    Log.d("observerregistrat:dins de lif(registrat)", "Si funciona");
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    //toast
+                }
             }
         });
     }

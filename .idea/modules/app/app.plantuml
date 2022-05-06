@@ -1,0 +1,186 @@
+@startuml
+
+title __MOUSSE.APP's Class Diagram__\n
+
+  namespace com.example.mousse {
+    class com.example.mousse.BuildConfig {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    class com.example.mousse.CustomAdapter {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    class com.example.mousse.CustomViewHolder {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    class com.example.mousse.DatabaseAdapter {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    class com.example.mousse.MainActivity {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    class com.example.mousse.MainActivityViewModel {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    class com.example.mousse.Receta {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    class com.example.mousse.Usuario {
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.buscar {
+      class com.example.mousse.ui.buscar.BuscarFragment {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.buscar {
+      class com.example.mousse.ui.buscar.BuscarViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.crear_receta {
+      class com.example.mousse.ui.crear_receta.CrearRecetaFragment {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.crear_receta {
+      class com.example.mousse.ui.crear_receta.CrearRecetaViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.home {
+      class com.example.mousse.ui.home.HomeFragment {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.home {
+      class com.example.mousse.ui.home.HomeViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.login {
+      class com.example.mousse.ui.login.LoginActivity {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.login {
+      class com.example.mousse.ui.login.LoginViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.perfil {
+      class com.example.mousse.ui.perfil.PerfilFragment {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.perfil {
+      class com.example.mousse.ui.perfil.PerfilViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.registrarse {
+      class com.example.mousse.ui.registrarse.RegistrarseActivity {
+      }
+    }
+  }
+  
+
+  namespace com.example.mousse {
+    namespace ui.registrarse {
+      class com.example.mousse.ui.registrarse.RegistrarseViewModel {
+      }
+    }
+  }
+  
+
+  com.example.mousse.CustomAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.mousse.CustomViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.mousse.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.mousse.MainActivityViewModel .up.|> com.example.mousse.DatabaseAdapter.vmInterface
+  com.example.mousse.MainActivityViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.example.mousse.Receta o-- com.example.mousse.DatabaseAdapter : adapter
+  com.example.mousse.Usuario o-- com.example.mousse.DatabaseAdapter : adapter
+  com.example.mousse.ui.buscar.BuscarFragment -up-|> androidx.fragment.app.Fragment
+  com.example.mousse.ui.buscar.BuscarViewModel -up-|> androidx.lifecycle.ViewModel
+  com.example.mousse.ui.crear_receta.CrearRecetaFragment -up-|> androidx.fragment.app.Fragment
+  com.example.mousse.ui.crear_receta.CrearRecetaViewModel .up.|> com.example.mousse.DatabaseAdapter.vmInterface
+  com.example.mousse.ui.crear_receta.CrearRecetaViewModel -up-|> androidx.lifecycle.ViewModel
+  com.example.mousse.ui.crear_receta.CrearRecetaViewModel o-- com.example.mousse.DatabaseAdapter : da
+  com.example.mousse.ui.home.HomeFragment -up-|> androidx.fragment.app.Fragment
+  com.example.mousse.ui.home.HomeViewModel -up-|> androidx.lifecycle.ViewModel
+  com.example.mousse.ui.login.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.mousse.ui.login.LoginViewModel .up.|> com.example.mousse.DatabaseAdapter.vmInterface
+  com.example.mousse.ui.login.LoginViewModel -up-|> androidx.lifecycle.ViewModel
+  com.example.mousse.ui.login.LoginViewModel o-- com.example.mousse.DatabaseAdapter : da
+  com.example.mousse.ui.perfil.PerfilFragment -up-|> androidx.fragment.app.Fragment
+  com.example.mousse.ui.perfil.PerfilFragment o-- com.example.mousse.ui.perfil.PerfilViewModel : viewModel
+  com.example.mousse.ui.perfil.PerfilViewModel .up.|> com.example.mousse.DatabaseAdapter.vmInterface
+  com.example.mousse.ui.perfil.PerfilViewModel -up-|> androidx.lifecycle.ViewModel
+  com.example.mousse.ui.perfil.PerfilViewModel o-- com.example.mousse.DatabaseAdapter : da
+  com.example.mousse.ui.registrarse.RegistrarseActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.mousse.ui.registrarse.RegistrarseViewModel .up.|> com.example.mousse.DatabaseAdapter.vmInterface
+  com.example.mousse.ui.registrarse.RegistrarseViewModel -up-|> androidx.lifecycle.ViewModel
+  com.example.mousse.ui.registrarse.RegistrarseViewModel o-- com.example.mousse.DatabaseAdapter : da
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
