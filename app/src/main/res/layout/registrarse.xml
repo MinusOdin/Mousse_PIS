@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:weightSum="8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,33 +19,66 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Registrar"
+            android:gravity="center"
+            android:text="Registrarse"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="bottom"
+            android:inputType="textPersonName"
+            android:text="Nombre de Usuario" />
 
         <EditText
             android:id="@+id/editTextTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:ems="10"
-            android:hint="e-mail"
+            android:gravity="bottom"
+            android:hint="Correo Electrónico"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editTextTextContraseña"
             android:layout_width="match_parent"
-            android:layout_height="202dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
             android:ems="10"
-            android:hint="Contrassenya"
+            android:gravity="bottom"
+            android:hint="Contraseña"
             android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:ems="10"
+            android:gravity="bottom"
+            android:hint="Repetir Contraseña"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:orientation="vertical"></LinearLayout>
 
         <Button
             android:id="@+id/btnRegistrarse"
             android:layout_width="match_parent"
-            android:layout_height="115dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
             android:text="Resgistrar" />
 
     </LinearLayout>
