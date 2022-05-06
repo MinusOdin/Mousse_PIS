@@ -45,6 +45,7 @@ public class DatabaseAdapter extends Activity {
     public interface vmInterface{
         void setCollection(ArrayList<Receta> recetas);
         void setToast(String t);
+        void setRegistrat(boolean registrat);
     }
 
     public void initFirebase(){
@@ -94,12 +95,14 @@ public class DatabaseAdapter extends Activity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        listener.setToast("Pubication succed.");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
+                        listener.setToast("Pubication failed.");
                     }
                 });
     }
@@ -113,10 +116,12 @@ public class DatabaseAdapter extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             listener.setToast("Register succed.");
+                            listener.setRegistrat(true);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             listener.setToast("Register failed.");
+                            listener.setRegistrat(false);
                         }
                     }
                 });

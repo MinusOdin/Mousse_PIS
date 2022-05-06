@@ -54,4 +54,8 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
         mToast.setValue(t);
     }
 
+    @Override
+    public void setRegistrat(boolean registrat) {
+    }
+
 }

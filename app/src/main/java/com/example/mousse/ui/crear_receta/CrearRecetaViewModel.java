@@ -14,12 +14,12 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
 
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<String> mToast;
+    DatabaseAdapter da;
 
     public CrearRecetaViewModel() {
         mRecetas = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        DatabaseAdapter da = new DatabaseAdapter(this);
-        da.getCollectionByUser();
+        da = new DatabaseAdapter(this);
     }
 
     //public getter. Not mutable , read-only
@@ -32,13 +32,7 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
     }
 
     public void addReceta(String name, String descripcion){
-        Receta receta = new Receta(name, descripcion);
-        if (receta != null) {
-            mRecetas.getValue().add(receta);
-            //Inform observer.
-            mRecetas.setValue(mRecetas.getValue());
-            receta.saveReceta();
-        }
+            da.saveReceta(name, descripcion);
     }
 
     public LiveData<String> getToast(){
@@ -52,5 +46,10 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
 
     public void setToast(String t) {
         mToast.setValue(t);
+    }
+
+    @Override
+    public void setRegistrat(boolean registrat) {
+
     }
 }

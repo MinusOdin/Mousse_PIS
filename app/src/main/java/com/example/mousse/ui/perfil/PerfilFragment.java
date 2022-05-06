@@ -23,6 +23,7 @@ public class PerfilFragment extends Fragment{
 
     private RecyclerView mRecyclerView;
     private PerfilViewModel viewModel;
+    private CustomAdapter newAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,8 +35,14 @@ public class PerfilFragment extends Fragment{
 
         mRecyclerView = root.findViewById(R.id.recyclerViewRecetasUsuario);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()) );
-
-        setLiveDataObservers(root);
+        ArrayList<Receta> recetas = new ArrayList<>();
+        recetas.add(new Receta("Macarrons", "Macarrones con queso"));
+        recetas.add(new Receta("Macarrons2", "Macarrones con queso"));
+        recetas.add(new Receta("Macarrons3", "Macarrones con queso"));
+        recetas.add(new Receta("Macarrons4", "Macarrones con queso"));
+        newAdapter = new CustomAdapter(root.getContext(), recetas);
+        mRecyclerView.setAdapter(newAdapter);
+        //setLiveDataObservers(root);
 
         return root;
     }
@@ -47,8 +54,6 @@ public class PerfilFragment extends Fragment{
         final Observer<ArrayList<Receta>> observer = new Observer<ArrayList<Receta>>() {
             @Override
             public void onChanged(ArrayList<Receta> recetas) {
-                CustomAdapter newAdapter = new CustomAdapter(root.getContext(), recetas);
-                mRecyclerView.swapAdapter(newAdapter, false);
                 newAdapter.notifyDataSetChanged();
             }
         };

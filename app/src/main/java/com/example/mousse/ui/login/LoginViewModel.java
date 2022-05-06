@@ -47,4 +47,9 @@ public class LoginViewModel extends ViewModel implements DatabaseAdapter.vmInter
         mToast.setValue(t);
     }
 
+    @Override
+    public void setRegistrat(boolean registrat) {
+
+    }
+
 }

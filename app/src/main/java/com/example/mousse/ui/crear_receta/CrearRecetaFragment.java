@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.mousse.R;
 import com.example.mousse.databinding.FragmentNotificationsBinding;
 import com.example.mousse.ui.home.HomeViewModel;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class CrearRecetaFragment extends Fragment {
 
@@ -33,8 +34,8 @@ public class CrearRecetaFragment extends Fragment {
         btnpublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextNombreReceta = root.findViewById(R.id.textInputNombreReceta);
-                editTextDescripcioReceta = root.findViewById(R.id.textViewDescripcionReceta);
+                editTextNombreReceta = root.findViewById(R.id.editTextNombre);
+                editTextDescripcioReceta = root.findViewById(R.id.editTextDescripcion);
                 crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString());
             }
         });

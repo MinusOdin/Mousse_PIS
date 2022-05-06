@@ -1,6 +1,7 @@
 package com.example.mousse.ui.registrarse;
 
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,6 +19,8 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<ArrayList<Usuario>> mUsuarios;
     private final MutableLiveData<String> mToast;
+    private final MutableLiveData<Boolean> mRegistrat = new MutableLiveData<>();
+    public LiveData<Boolean> registrat = mRegistrat;
     private final DatabaseAdapter da;
 
     public RegistrarseViewModel() {
@@ -43,6 +46,12 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
     @Override
     public void setToast(String t) {
         mToast.setValue(t);
+    }
+
+    @Override
+    public void setRegistrat(boolean registrat) {
+        mRegistrat.setValue(registrat);
+        Log.d("setRegistrat", "Si funciona");
     }
 
 }

@@ -55,17 +55,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/editTextNombre"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Nombre"
+                    android:inputType="textPersonName" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputNombreReceta"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Nombre"
-                        android:textSize="20sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/editTextDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Descripción"
+                    android:inputType="textPersonName" />
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -73,36 +77,21 @@
                     android:layout_height="142dp"
                     app:srcCompat="@android:drawable/ic_menu_camera" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/editTextTextPersonName6"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Hashtags"
+                    android:inputType="textPersonName" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputHashtagsReceta"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Hashtags"
-                        android:textSize="20sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/textViewIngredientsReceta"
+                <EditText
+                    android:id="@+id/editTextTextPersonName5"
                     android:layout_width="match_parent"
-                    android:layout_height="43dp"
-                    android:text="Ingredientes"
-                    android:textSize="20sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputIngredientsReceta"
-                        android:layout_width="match_parent"
-                        android:layout_height="124dp"
-                        android:hint="·"
-                        android:textSize="20sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Ingredients"
+                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/textViewDescripcionReceta"

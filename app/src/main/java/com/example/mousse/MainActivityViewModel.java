@@ -58,6 +58,11 @@ public class MainActivityViewModel extends AndroidViewModel implements DatabaseA
     public void setToast(String t) {
         mToast.setValue(t);
     }
+
+    @Override
+    public void setRegistrat(boolean registrat) {
+
+    }
 }
 
 
