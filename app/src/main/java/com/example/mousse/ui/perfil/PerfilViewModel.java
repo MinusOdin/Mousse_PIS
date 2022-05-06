@@ -34,16 +34,6 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
         return mRecetas.getValue().get(idx);
     }
 
-    public void addReceta(String name,  String descripcion){
-        Receta receta = new Receta(name, descripcion);
-        if (receta != null) {
-            mRecetas.getValue().add(receta);
-            //Inform observer.
-            mRecetas.setValue(mRecetas.getValue());
-            receta.saveReceta();
-        }
-    }
-
     public LiveData<String> getToast(){
         return mToast;
     }

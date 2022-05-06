@@ -9,13 +9,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
         android:orientation="vertical"
         android:weightSum="10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,10 +23,10 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                app:srcCompat="@drawable/jz22y"
+                app:srcCompat="@drawable/mousseimagen"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -42,15 +40,10 @@
 
         </LinearLayout>
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleviewRecom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9.25">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+            android:layout_height="687dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

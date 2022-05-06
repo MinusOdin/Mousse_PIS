@@ -42,6 +42,8 @@ public class DatabaseAdapter extends Activity {
     }
 
 
+
+
     public interface vmInterface{
         void setCollection(ArrayList<Receta> recetas);
         void setToast(String t);
@@ -52,6 +54,29 @@ public class DatabaseAdapter extends Activity {
         user = mAuth.getCurrentUser();
     }
 
+    public void getCollection10() {
+        Log.d(TAG,"updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        DatabaseAdapter.db.collection("Recetas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion") ) );
+                            }
+                            listener.setCollection(retrieved_recetas);
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
     public void getCollectionByUser(){
         Log.d(TAG,"updateRecetas: " + user.getUid());

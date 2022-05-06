@@ -20,7 +20,7 @@
 
     <item
         android:title=""
-        android:icon="@drawable/png_transparent_toque_chef_s_uniform_computer_icons_chef_icon"
+        android:icon="@drawable/icono_chef"
         android:id="@+id/navegation_perfil"/>
 
 </menu>
