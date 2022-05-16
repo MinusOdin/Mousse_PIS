@@ -25,11 +25,11 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/editar_perfil"
                     android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Editar" />
+                    android:text="Editar perfil" />
 
                 <ImageView
                     android:id="@+id/imageView3"
