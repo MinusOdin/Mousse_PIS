@@ -33,4 +33,9 @@ public class EditarPerfilViewModel extends ViewModel implements DatabaseAdapter.
     public void setToast(String t) {
 
     }
+
+    @Override
+    public void setSuccesfull(boolean succesfull) {
+
+    }
 }

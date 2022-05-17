@@ -43,11 +43,11 @@ public class PerfilFragment extends Fragment{
         setLiveDataObservers(root);
 
         //boton editar perfil
-        btnEditarPerfil = findViewById(R.id.editar_perfil);
+        btnEditarPerfil = root.findViewById(R.id.editar_perfil);
         btnEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PerfilFragment.this, EditarPerfilActivity.class);
+                Intent intent = new Intent(getActivity(), EditarPerfilActivity.class);
                 startActivity(intent);
             }
         });
