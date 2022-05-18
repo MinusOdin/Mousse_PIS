@@ -22,7 +22,8 @@
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="113dp"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                    app:srcCompat="@drawable/plato"
+                    tools:srcCompat="@drawable/plato" />
 
                 <LinearLayout
                     android:id="@+id/topLinearLayout"
@@ -39,7 +40,7 @@
                         android:textSize="20sp" />
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/imageButtonFav"
                         android:layout_width="13dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -56,26 +57,18 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/buttonPasAPas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Comentar"
-                    android:textSize="13dp" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0"
                     android:text="Cocinar Paso a Paso"
                     android:textSize="13dp" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton"
+                    android:id="@+id/toggleButtonNoHecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:text="Hecha"
                     android:textOff="No hecha"
                     android:textOn="Hecha"
@@ -83,14 +76,14 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textHome"
+                android:id="@+id/textReceta"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:text="Nombre de la Receta"
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/hashtags_textLayout"
+                android:id="@+id/textHashtags"
                 android:layout_width="match_parent"
                 android:layout_height="121dp"
                 android:text="Hashtags"
@@ -103,13 +96,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textIngredientes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ingredientes"
                     android:textSize="30sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerIngredientes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -123,23 +117,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/textPasos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pasos a seguir:"
                     android:textSize="30sp" />
 
-                <TextView
-                    android:id="@+id/textView7"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerPasos"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="1r Pas" />
+                    android:layout_height="match_parent" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="2r Pas" />
             </LinearLayout>
 
         </LinearLayout>

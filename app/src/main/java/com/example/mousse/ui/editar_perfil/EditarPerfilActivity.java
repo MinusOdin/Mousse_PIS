@@ -35,7 +35,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         btnNoGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopup(view);
+                showPopup();
             }
         });
 
@@ -64,13 +64,13 @@ public class EditarPerfilActivity extends AppCompatActivity {
  */
     }
 
-    public void showPopup(View anchorView) {
+    public void showPopup() {
 
         View popupView = getLayoutInflater().inflate(R.layout.popup_layout, null);
         PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable());
-        popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
         // Initialize objects from layout
         Button aceptarButton = popupView.findViewById(R.id.aceptar_button);
@@ -85,4 +85,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        showPopup();
+    }
 }

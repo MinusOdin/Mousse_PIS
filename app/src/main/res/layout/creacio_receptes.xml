@@ -19,28 +19,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="3">
 
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Cancelar" />
+                android:layout_weight="0"
+                android:text="Cancelar"
+                android:textSize="16sp" />
 
             <Button
-                android:id="@+id/btnRegistrarse"
+                android:id="@+id/btnBorrador"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="Guardar borrador" />
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="Guardar borrador"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnpublicar"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="Publicar" />
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:text="Publicar"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <ScrollView
@@ -110,7 +114,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/buttonAfegir"
                     android:layout_width="match_parent"
                     android:layout_height="76dp"
                     android:text="+"
