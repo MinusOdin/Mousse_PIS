@@ -9,26 +9,24 @@ public class Receta {
     private String nombre;
     private ArrayList<String> ingredientes;
     private ArrayList<String> hashtags;
-    private String idusuario;
+    private String emailUsuario;
     private String descripcion;
     private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
 
     //foto
 
-    public Receta(ArrayList<String> pasos, String nombre, ArrayList<String> ingredientes, ArrayList<String> hashtags, String idusuario, String descripcion) {
-        this.pasos = pasos;
+    public Receta(String nombre,  String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredientes) {
+        //this.pasos = pasos;
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.hashtags = hashtags;
-        this.idusuario = idusuario;
         this.descripcion = descripcion;
     }
 
-    public Receta( String nombre, String descripcion) {
+    public Receta(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
-
     public ArrayList<String> getPasos() {
         return pasos;
     }
@@ -57,10 +55,10 @@ public class Receta {
         this.pasos.add(paso);
     }
 
-    public String getIdUsuario() { return idusuario; }
+    public String getEmailUsuario() { return emailUsuario; }
 
-    public void setUsuario(String idusuario) {
-        this.idusuario = idusuario;
+    public void setEmailUsuario(String idusuario) {
+        this.emailUsuario = idusuario;
     }
 
     public String getDescripcion(){ return descripcion; }
@@ -80,6 +78,7 @@ public class Receta {
     public void saveReceta() {
 
         Log.d("saveReceta", "saveReceta-> saveDocument");
-        adapter.saveReceta(this.nombre, this.descripcion);
+        adapter.saveReceta(this.nombre, this.descripcion, this.hashtags, this.ingredientes
+        );
     }
 }

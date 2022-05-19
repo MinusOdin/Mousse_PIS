@@ -31,6 +31,7 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
 
     public void registrarUsuario(String email, String contraseña) {
             da.saveUser(email, contraseña);
+
     }
 
     public LiveData<String> getToast(){

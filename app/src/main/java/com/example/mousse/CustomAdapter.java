@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -50,6 +51,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         viewHolder.getTextViewNombre().setText(
                 localDataSet.get(position).getNombre());
         //faltaria la imatge.
+        LinearLayout linearLayout = viewHolder.getLinearLayout();
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(localDataSet.get(position));
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

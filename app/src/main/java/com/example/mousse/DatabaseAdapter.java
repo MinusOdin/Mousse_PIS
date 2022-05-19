@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,8 +56,7 @@ public class DatabaseAdapter extends Activity {
     }
 
     public void getCollection10() {
-        Log.d(TAG,"updateRecetas: " + user.getUid());
-        Log.d(TAG, user.getUid());
+        Log.d(TAG,"Recomenacions updateRecetas: ");
         DatabaseAdapter.db.collection("Recetas")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -81,18 +81,20 @@ public class DatabaseAdapter extends Activity {
     public void getCollectionByUser(){
         Log.d(TAG,"updateRecetas: " + user.getUid());
         Log.d(TAG, user.getUid());
+        String userEmail = Usuario.getCurrentUserEmail();
         DatabaseAdapter.db.collection("Recetas")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(user.getUid() == document.getString("user")){
-                                    Log.d(TAG, document.getId() + " => " + document.getData());
-                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion") ) );
+                                if(userEmail.equals(document.getString("user"))){
+                                    Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
+                                    Log.d(String.valueOf(document.getData()), "oncomplete");
+                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients")) );
                                 }
                                 else Log.d(TAG, "miss");
                             }
@@ -106,13 +108,15 @@ public class DatabaseAdapter extends Activity {
     }
 
 
-    public void saveReceta(String nombre, String descripcion) {
+    public void saveReceta(String nombre, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients) {
 
         // Create a new user with a first and last name
         Map<String, Object> note = new HashMap<>();
         note.put("nombre", nombre);
-        note.put("user", user.getUid());
+        note.put("user", Usuario.getCurrentUserEmail()); //
         note.put("descripcion", descripcion);
+        note.put("hashtags", hashtags);
+        note.put("ingredients", ingredients);
 
         Log.d(TAG, "saveDocument");
         // Add a new document with a generated ID
@@ -143,6 +147,7 @@ public class DatabaseAdapter extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             listener.setToast("Register succed.");
+                            Usuario.setCurrentUser(email, password);
                             listener.setSuccesfull(true);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -163,6 +168,7 @@ public class DatabaseAdapter extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             listener.setToast("Authentication succes.");
+                            Usuario.setCurrentUser(email, password);
                             listener.setSuccesfull(true);
                         } else {
                             // If sign in fails, display a message to the user.

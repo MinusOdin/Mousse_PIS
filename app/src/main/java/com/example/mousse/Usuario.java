@@ -6,12 +6,20 @@ public class Usuario {
     private String nombre;
     private String email;
     private String contraseña;
+    public static Usuario currentUser;
     private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
 
     public Usuario(String email, String contraseña) {
-        this.nombre = nombre;
         this.email = email;
         this.contraseña = contraseña;
+    }
+
+    public static void setCurrentUser(String email, String password) {
+        currentUser = new Usuario(email, password);
+    }
+
+    public static String getCurrentUserEmail() {
+        return currentUser.getEmail();
     }
 
     public String getNombre() {
@@ -31,7 +39,6 @@ public class Usuario {
     }
 
     public void saveUsuario() {
-
         Log.d("saveUsuario", "saveUsuario-> saveUser");
         adapter.saveUser(this.email, this.contraseña);
     }

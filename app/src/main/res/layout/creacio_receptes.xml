@@ -79,7 +79,7 @@
                     app:srcCompat="@android:drawable/ic_menu_camera" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName6"
+                    android:id="@+id/editTextHashtagsReceta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -87,7 +87,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName5"
+                    android:id="@+id/editTextIngredientsReceta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -50,14 +51,14 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.getSuccesfull().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean succesfull) {
-                Log.d("observerregistrat:fora del if", "Si funciona");
                 if(succesfull){
-                    Log.d("observerregistrat:dins de lif(registrat)", "Si funciona");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    //toast
+                    Toast toast=Toast.makeText(getApplicationContext(),"Credenciales Erronias",Toast.LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show();
 
                 }
             }

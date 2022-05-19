@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -47,7 +48,9 @@ public class RegistrarseActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else {
-                    //toast
+                    Toast toast=Toast.makeText(getApplicationContext(),"Credenciales Erronias",Toast.LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show();
                 }
             }
         });

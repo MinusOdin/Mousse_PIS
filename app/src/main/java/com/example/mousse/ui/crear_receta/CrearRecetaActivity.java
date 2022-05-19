@@ -21,10 +21,15 @@ import com.example.mousse.databinding.FragmentNotificationsBinding;
 import com.example.mousse.ui.home.HomeViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CrearRecetaActivity extends AppCompatActivity {
 
     EditText editTextNombreReceta;
     EditText editTextDescripcioReceta;
+    EditText editTextHashtagsReceta;
+    EditText editTextIngredientsReceta;
     Button btnpublicar;
     Button btnCancelar;
 
@@ -40,7 +45,11 @@ public class CrearRecetaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 editTextNombreReceta = findViewById(R.id.editTextNombre);
                 editTextDescripcioReceta = findViewById(R.id.editTextDescripcion);
-                crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString());
+                editTextHashtagsReceta = findViewById(R.id.editTextHashtagsReceta);
+                ArrayList<String> hashtags = new ArrayList<>(Arrays.asList(editTextHashtagsReceta.getText().toString().split(",")));
+                editTextIngredientsReceta = findViewById(R.id.editTextIngredientsReceta);
+                ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(editTextIngredientsReceta.getText().toString().split(",")));
+                crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients);
             }
         });
         btnCancelar = findViewById(R.id.btnCancelar);
