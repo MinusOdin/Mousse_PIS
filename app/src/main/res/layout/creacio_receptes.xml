@@ -91,34 +91,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Ingredients"
+                    android:hint="Ingredientes"
                     android:inputType="textPersonName" />
-
-                <TextView
-                    android:id="@+id/textViewDescripcionReceta"
-                    android:layout_width="match_parent"
-                    android:layout_height="41dp"
-                    android:text="Pasos a seguir"
-                    android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputPasReceta"
+                        android:id="@+id/editTextPasos"
                         android:layout_width="match_parent"
-                        android:layout_height="83dp"
-                        android:hint="1er paso"
-                        android:textSize="20sp" />
+                        android:layout_height="125dp"
+                        android:hint="Pasos" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/buttonAfegir"
-                    android:layout_width="match_parent"
-                    android:layout_height="76dp"
-                    android:text="+"
-                    android:textSize="34sp" />
             </LinearLayout>
         </ScrollView>
 

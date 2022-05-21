@@ -1,6 +1,8 @@
 package com.example.mousse;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,9 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mousse.ui.crear_receta.CrearRecetaActivity;
+import com.example.mousse.ui.receta.RecetaActivity;
 
 import java.util.ArrayList;
 
@@ -55,7 +60,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(localDataSet.get(position));
+                Intent intent = new Intent(parentContext, RecetaActivity.class);
+                intent.putExtra("Receta", localDataSet.get(viewHolder.getAdapterPosition()));
+                parentContext.startActivity(intent);
             }
         });
     }
@@ -68,5 +75,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         }
         return 0;
     }
-
 }

@@ -94,7 +94,7 @@ public class DatabaseAdapter extends Activity {
                                 if(userEmail.equals(document.getString("user"))){
                                     Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
                                     Log.d(String.valueOf(document.getData()), "oncomplete");
-                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients")) );
+                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), userEmail, (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos") ));
                                 }
                                 else Log.d(TAG, "miss");
                             }
@@ -108,7 +108,7 @@ public class DatabaseAdapter extends Activity {
     }
 
 
-    public void saveReceta(String nombre, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients) {
+    public void saveReceta(String nombre, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos) {
 
         // Create a new user with a first and last name
         Map<String, Object> note = new HashMap<>();
@@ -117,6 +117,7 @@ public class DatabaseAdapter extends Activity {
         note.put("descripcion", descripcion);
         note.put("hashtags", hashtags);
         note.put("ingredients", ingredients);
+        note.put("pasos", pasos);
 
         Log.d(TAG, "saveDocument");
         // Add a new document with a generated ID

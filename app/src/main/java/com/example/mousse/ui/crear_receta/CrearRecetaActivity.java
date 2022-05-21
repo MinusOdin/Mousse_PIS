@@ -30,6 +30,7 @@ public class CrearRecetaActivity extends AppCompatActivity {
     EditText editTextDescripcioReceta;
     EditText editTextHashtagsReceta;
     EditText editTextIngredientsReceta;
+    TextInputEditText editTextPasos;
     Button btnpublicar;
     Button btnCancelar;
 
@@ -49,7 +50,9 @@ public class CrearRecetaActivity extends AppCompatActivity {
                 ArrayList<String> hashtags = new ArrayList<>(Arrays.asList(editTextHashtagsReceta.getText().toString().split(",")));
                 editTextIngredientsReceta = findViewById(R.id.editTextIngredientsReceta);
                 ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(editTextIngredientsReceta.getText().toString().split(",")));
-                crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients);
+                editTextPasos = findViewById(R.id.editTextPasos);
+                ArrayList<String> pasos = new ArrayList<>(Arrays.asList(editTextPasos.getText().toString().split("\n")));
+                crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients, pasos);
             }
         });
         btnCancelar = findViewById(R.id.btnCancelar);

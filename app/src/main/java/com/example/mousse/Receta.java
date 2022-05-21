@@ -1,10 +1,13 @@
 package com.example.mousse;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Receta {
+public class Receta implements Parcelable {
     private ArrayList<String> pasos;
     private String nombre;
     private ArrayList<String> ingredientes;
@@ -15,18 +18,29 @@ public class Receta {
 
     //foto
 
-    public Receta(String nombre,  String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredientes) {
-        //this.pasos = pasos;
+    public Receta(String nombre,  String descripcion, String emailUsuario, ArrayList<String> hashtags, ArrayList<String> ingredientes, ArrayList<String> pasos) {
         this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.emailUsuario = emailUsuario;
         this.ingredientes = ingredientes;
         this.hashtags = hashtags;
-        this.descripcion = descripcion;
+        this.pasos = pasos;
     }
 
     public Receta(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+
+    private Receta(Parcel in) {
+        this.nombre = in.readString();
+        this.descripcion = in.readString();
+        this.emailUsuario = in.readString();
+        this.hashtags = in.readArrayList(null);
+        this.ingredientes = in.readArrayList(null);
+        this.pasos = in.readArrayList(null);
+    }
+
     public ArrayList<String> getPasos() {
         return pasos;
     }
@@ -78,7 +92,32 @@ public class Receta {
     public void saveReceta() {
 
         Log.d("saveReceta", "saveReceta-> saveDocument");
-        adapter.saveReceta(this.nombre, this.descripcion, this.hashtags, this.ingredientes
-        );
+        adapter.saveReceta(this.nombre, this.descripcion, this.hashtags, this.ingredientes, this.pasos);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Receta> CREATOR
+            = new Parcelable.Creator<Receta>() {
+        public Receta createFromParcel(Parcel in) {
+            return new Receta(in);
+        }
+
+        public Receta[] newArray(int size) {
+            return new Receta[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(nombre);
+        parcel.writeString(descripcion);
+        parcel.writeString(emailUsuario);
+        parcel.writeList(ingredientes);
+        parcel.writeList(hashtags);
+        parcel.writeList(pasos);
     }
 }

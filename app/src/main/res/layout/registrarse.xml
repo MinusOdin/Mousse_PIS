@@ -35,8 +35,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="bottom"
-            android:inputType="textPersonName"
-            android:text="Nombre de Usuario" />
+            android:hint="Nombre de Usuario"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextTextEmail"
