@@ -1,26 +1,32 @@
 package com.example.mousse.ui.crear_receta;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.R;
-import com.example.mousse.databinding.FragmentNotificationsBinding;
-import com.example.mousse.ui.home.HomeViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,6 +39,8 @@ public class CrearRecetaActivity extends AppCompatActivity {
     TextInputEditText editTextPasos;
     Button btnpublicar;
     Button btnCancelar;
+    ImageView image;
+    public static final int RESULT_LOAD_IMAGE = 1;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +61,18 @@ public class CrearRecetaActivity extends AppCompatActivity {
                 editTextPasos = findViewById(R.id.editTextPasos);
                 ArrayList<String> pasos = new ArrayList<>(Arrays.asList(editTextPasos.getText().toString().split("\n")));
                 crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients, pasos);
+                /*image = findViewById(R.id.imageViewReceta);
+                image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent imagePickerIntent = new Intent();
+                        imagePickerIntent.setType("image/*");
+                        imagePickerIntent.setAction(Intent.ACTION_GET_CONTENT);
+                        //startActivityFo
+                    }
+                });
+
+                 */
             }
         });
         btnCancelar = findViewById(R.id.btnCancelar);
@@ -85,10 +105,25 @@ public class CrearRecetaActivity extends AppCompatActivity {
             popupWindow.dismiss();
         });
     }
+/*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        //Detects request codes
+        if(requestCode== RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            image.setImageURI(selectedImage);
+        }
+    }
+
+ */
 
     @Override
     public void onBackPressed() {
         showPopup();
         //super.onBackPressed();
     }
+
 }

@@ -14,29 +14,39 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="273dp"
+            android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="197dp"
-                android:gravity="right"
-                android:orientation="vertical">
+                android:layout_height="202dp">
 
                 <Button
                     android:id="@+id/editar_perfil"
                     android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Editar perfil" />
+                    android:text="Editar perfil"
+                    tools:layout_editor_absoluteX="304dp"
+                    tools:layout_editor_absoluteY="3dp" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/imageView8"
                     android:layout_width="match_parent"
                     android:layout_height="153dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:srcCompat="@tools:sample/avatars" />
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textEmail"
+                    android:layout_width="134dp"
+                    android:layout_height="30dp"
+                    android:text="email"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="18dp"
+                    tools:layout_editor_absoluteY="14dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +96,9 @@
 
                 </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -123,12 +135,18 @@
                 android:text="Tab5" />
         </com.google.android.material.tabs.TabLayout>
 
+        <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewRecetasUsuario"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
-            tools:listitem="@layout/receptaenllista" />
+            tools:listitem="@layout/receptaenllista"/>
+    </androidx.core.widget.NestedScrollView>
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

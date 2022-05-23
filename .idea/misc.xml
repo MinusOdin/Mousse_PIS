@@ -23,6 +23,7 @@
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.492" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/creacio_receptes.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/editar_perfil.xml" value="0.17572463768115942" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_dashboard.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_home.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/fragment_notifications.xml" value="0.5541666666666667" />
@@ -32,6 +33,8 @@
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/recepta.xml" value="0.33" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/receptaenllista.xml" value="0.33" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/registrarse.xml" value="0.33" />
+        <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/usuario_view.xml" value="0.25" />
+        <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/layout/usuarios_perfil.xml" value="0.27089072543618" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/menu/bottom_nav_menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/arbel/StudioProjects/Mousse_PIS/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.492" />
         <entry key="..\:/Users/cex/Documents/Enginyeria Informatica/PIS/Mousse/app/src/main/res/layout/activity_main.xml" value="0.2545289855072464" />

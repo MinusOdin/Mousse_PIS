@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+
+
     public void goToCrearReceta(){
         Intent intent = new Intent(this, CrearRecetaActivity.class);
         startActivity(intent);

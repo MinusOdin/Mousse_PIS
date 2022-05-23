@@ -67,10 +67,10 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion") ) );
+                                retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"),
+                                        (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
                             }
                             listener.setCollection(retrieved_recetas);
-
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -92,9 +92,36 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if(userEmail.equals(document.getString("user"))){
-                                    Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
                                     Log.d(String.valueOf(document.getData()), "oncomplete");
                                     retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), userEmail, (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos") ));
+                                }
+                                else Log.d(TAG, "miss");
+                            }
+                            listener.setCollection(retrieved_recetas);
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void getCollectionByUser(String email){
+        Log.d(TAG,"updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        DatabaseAdapter.db.collection("Recetas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(email.equals(document.getString("user"))){
+                                    Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
+                                    Log.d(String.valueOf(document.getData()), "oncomplete");
+                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), email, (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos") ));
                                 }
                                 else Log.d(TAG, "miss");
                             }

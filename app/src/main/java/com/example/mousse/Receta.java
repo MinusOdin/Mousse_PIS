@@ -27,11 +27,6 @@ public class Receta implements Parcelable {
         this.pasos = pasos;
     }
 
-    public Receta(String nombre, String descripcion) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
-
     private Receta(Parcel in) {
         this.nombre = in.readString();
         this.descripcion = in.readString();

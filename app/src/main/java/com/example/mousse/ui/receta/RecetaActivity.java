@@ -1,18 +1,16 @@
 package com.example.mousse.ui.receta;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mousse.R;
 import com.example.mousse.Receta;
-
-import java.util.stream.Collectors;
+import com.example.mousse.ui.otro_perfil.OtroPerfilActivity;
 
 public class RecetaActivity extends AppCompatActivity {
 
@@ -39,6 +37,13 @@ public class RecetaActivity extends AppCompatActivity {
         //.setText(receta.getIngredientes().stream().map(Object::toString).collect(Collectors.joining(", ")));
         TextView textUsuari = findViewById(R.id.textUsuari);
         textUsuari.setText(receta.getEmailUsuario());
-
+        textUsuari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecetaActivity.this, OtroPerfilActivity.class);
+                intent.putExtra("user", receta.getEmailUsuario());
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/navegation_otro_perfil"
-        android:name="com.example.mousse.ui.otro_perfil.OtroPerfilFragment"
+        android:name="com.example.mousse.ui.otro_perfil.OtroPerfilActivity"
         tools:layout="@layout/usuario_view" />
 
 </navigation>
