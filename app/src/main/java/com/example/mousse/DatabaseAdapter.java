@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DatabaseAdapter extends Activity {
@@ -269,6 +270,47 @@ public class DatabaseAdapter extends Activity {
                 });
 
         return new HashMap<>();
+    }
+
+    public void getCollectionSearch(String busqueda){
+        Log.d(TAG,"updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        final boolean[] afegida = {false};
+        DatabaseAdapter.db.collection("Recetas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                afegida[0] = false;
+                                for (String palabra : (List<String>) document.get("ingredients")){
+                                    if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
+                                        //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
+                                        //Log.d(String.valueOf(document.getData()), "oncomplete");
+                                        retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                        afegida[0] = true;
+
+                                    } else Log.d(TAG, "miss");
+                                }
+                                for (String palabra : (List<String>) document.get("hashtags")){
+                                    if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
+                                        //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
+                                        //Log.d(String.valueOf(document.getData()), "oncomplete");
+                                        retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                        afegida[0] = true;
+                                    } else Log.d(TAG, "miss");
+                                }
+                            }
+                            listener.setCollection(retrieved_recetas);
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
 }

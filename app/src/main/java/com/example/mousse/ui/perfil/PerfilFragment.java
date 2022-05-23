@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.widget.Button;   //
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mousse.CustomAdapter;
 import com.example.mousse.R;
 import com.example.mousse.Receta;
-import com.example.mousse.ui.editar_perfil.EditarPerfilActivity;   //
+import com.example.mousse.ui.editar_perfil.EditarPerfilActivity;
 import java.util.ArrayList;
 
 public class PerfilFragment extends Fragment{

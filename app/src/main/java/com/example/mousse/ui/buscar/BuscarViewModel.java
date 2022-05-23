@@ -21,8 +21,8 @@ public class BuscarViewModel extends ViewModel implements DatabaseAdapter.vmInte
         da = new DatabaseAdapter(this);
     }
 
-    public void init(){
-        da.getCollectionSearch();
+    public void init(String string){
+        da.getCollectionSearch(string);
     }
 
     public LiveData<ArrayList<Receta>> getRecetas(){

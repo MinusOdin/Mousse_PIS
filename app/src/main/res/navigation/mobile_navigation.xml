@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/navigation_buscador"
         android:name="com.example.mousse.ui.buscar.BuscarFragment"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_buscar" >
         <action
             android:id="@+id/action_navigation_buscador_to_navegation_otro_perfil"
             app:destination="@id/navegation_otro_perfil" />
