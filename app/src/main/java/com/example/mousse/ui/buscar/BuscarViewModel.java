@@ -1,5 +1,7 @@
 package com.example.mousse.ui.buscar;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,8 +16,10 @@ public class BuscarViewModel extends ViewModel implements DatabaseAdapter.vmInte
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<String> mToast;
     private final DatabaseAdapter da;
+    private final MutableLiveData<Boolean> mSuccesfull;
 
     public BuscarViewModel() {
+        mSuccesfull = new MutableLiveData<>();
         mRecetas = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
         da = new DatabaseAdapter(this);
@@ -37,6 +41,10 @@ public class BuscarViewModel extends ViewModel implements DatabaseAdapter.vmInte
         return mToast;
     }
 
+    public LiveData<Boolean> getSuccesfull(){
+        return mSuccesfull;
+    }
+
 
     @Override
     public void setCollection(ArrayList<Receta> recetas) {
@@ -50,6 +58,6 @@ public class BuscarViewModel extends ViewModel implements DatabaseAdapter.vmInte
 
     @Override
     public void setSuccesfull(boolean succesfull) {
-
+        mSuccesfull.setValue(succesfull);
     }
 }

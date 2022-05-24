@@ -57,6 +57,16 @@ public class BuscarFragment extends Fragment {
                 return false;
             }
         });
+        viewModel.getSuccesfull().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (!aBoolean){
+                    Toast toast=Toast.makeText(getContext(),"No hay recetas",Toast.LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show();
+                }
+            }
+        });
 
         return root;
     }

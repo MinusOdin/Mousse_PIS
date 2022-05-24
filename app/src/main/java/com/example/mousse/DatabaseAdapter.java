@@ -304,7 +304,12 @@ public class DatabaseAdapter extends Activity {
                                     } else Log.d(TAG, "miss");
                                 }
                             }
-                            listener.setCollection(retrieved_recetas);
+                            if (retrieved_recetas.isEmpty()){
+                                listener.setSuccesfull(false);
+                            }
+                            else{
+                                listener.setCollection(retrieved_recetas);
+                            }
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
