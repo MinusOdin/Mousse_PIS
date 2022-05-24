@@ -1,6 +1,7 @@
 package com.example.mousse;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -168,6 +169,10 @@ public class DatabaseAdapter extends Activity {
     }
 
     public void saveUser( String email, String password) {
+        Map<String, Object> note = new HashMap<>();
+        //note.put("nombre", nombre);
+        note.put("email", email);
+        //note.put("foto", uri);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -177,6 +182,7 @@ public class DatabaseAdapter extends Activity {
                             Log.d(TAG, "createUserWithEmail:success");
                             listener.setToast("Register succed.");
                             Usuario.setCurrentUser(email, password);
+                            db.collection("Usuarios").add(note);
                             listener.setSuccesfull(true);
                         } else {
                             // If sign in fails, display a message to the user.

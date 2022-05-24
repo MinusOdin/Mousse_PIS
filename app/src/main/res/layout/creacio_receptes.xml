@@ -78,6 +78,12 @@
                     android:layout_height="142dp"
                     app:srcCompat="@android:drawable/ic_menu_camera" />
 
+                <Button
+                    android:id="@+id/buttonFoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Subir Foto" />
+
                 <EditText
                     android:id="@+id/editTextHashtagsReceta"
                     android:layout_width="match_parent"

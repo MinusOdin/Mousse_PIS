@@ -2,6 +2,7 @@ package com.example.mousse.ui.receta;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.mousse.R;
 import com.example.mousse.Receta;
 import com.example.mousse.ui.otro_perfil.OtroPerfilActivity;
+
+import java.util.stream.Collectors;
 
 public class RecetaActivity extends AppCompatActivity {
 
@@ -27,14 +30,11 @@ public class RecetaActivity extends AppCompatActivity {
         TextView textDescripcion = findViewById(R.id.textDescripcion);
         textDescripcion.setText(receta.getDescripcion());
         TextView textHashtags = findViewById(R.id.textHashtags);
-        String hashtags = "";
-        /*for (String hash : receta.getHashtags()) {
-            hashtags += ", " + hash;
-        }
-        //textHashtags.setText(hashtags);
-         */
+        textHashtags.setText("#" + receta.getHashtags().stream().map(Object::toString).collect(Collectors.joining(" #")));
         TextView textIngredients = findViewById(R.id.textIngredientes);
-        //.setText(receta.getIngredientes().stream().map(Object::toString).collect(Collectors.joining(", ")));
+        textIngredients.setText(receta.getIngredientes().stream().map(Object::toString).collect(Collectors.joining(", ")));
+        TextView textPasos = findViewById(R.id.textPasos);
+        textPasos.setText(receta.getPasos().stream().map(Object::toString).collect(Collectors.joining("\n")));
         TextView textUsuari = findViewById(R.id.textUsuari);
         textUsuari.setText(receta.getEmailUsuario());
         textUsuari.setOnClickListener(new View.OnClickListener() {

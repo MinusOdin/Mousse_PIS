@@ -1,13 +1,16 @@
 package com.example.mousse.ui.crear_receta;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,8 +30,9 @@ public class CrearRecetaActivity extends AppCompatActivity {
     TextInputEditText editTextPasos;
     Button btnpublicar;
     Button btnCancelar;
+    Button buttonFoto;
     ImageView image;
-    public static final int RESULT_LOAD_IMAGE = 1;
+    public static final int PICK_IMAGE = 1;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,29 +44,36 @@ public class CrearRecetaActivity extends AppCompatActivity {
         btnpublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextNombreReceta = findViewById(R.id.editTextNombre);
-                editTextDescripcioReceta = findViewById(R.id.editTextDescripcion);
-                editTextHashtagsReceta = findViewById(R.id.editTextHashtagsReceta);
-                ArrayList<String> hashtags = new ArrayList<>(Arrays.asList(editTextHashtagsReceta.getText().toString().split(",")));
-                editTextIngredientsReceta = findViewById(R.id.editTextIngredientsReceta);
-                ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(editTextIngredientsReceta.getText().toString().split(",")));
-                editTextPasos = findViewById(R.id.editTextPasos);
-                ArrayList<String> pasos = new ArrayList<>(Arrays.asList(editTextPasos.getText().toString().split("\n")));
-                crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients, pasos);
-                /*image = findViewById(R.id.imageViewReceta);
-                image.setOnClickListener(new View.OnClickListener() {
+                if (!(editTextNombreReceta == null && editTextIngredientsReceta == null&& editTextPasos == null)) {
+                    editTextNombreReceta = findViewById(R.id.editTextNombre);
+                    editTextDescripcioReceta = findViewById(R.id.editTextDescripcion);
+                    editTextHashtagsReceta = findViewById(R.id.editTextHashtagsReceta);
+                    ArrayList<String> hashtags = new ArrayList<>(Arrays.asList(editTextHashtagsReceta.getText().toString().split(",")));
+                    editTextIngredientsReceta = findViewById(R.id.editTextIngredientsReceta);
+                    ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(editTextIngredientsReceta.getText().toString().split(",")));
+                    editTextPasos = findViewById(R.id.editTextPasos);
+                    ArrayList<String> pasos = new ArrayList<>(Arrays.asList(editTextPasos.getText().toString().split("\n")));
+                    crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients, pasos);
+                buttonFoto = findViewById(R.id.buttonFoto);
+                buttonFoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent imagePickerIntent = new Intent();
-                        imagePickerIntent.setType("image/*");
-                        imagePickerIntent.setAction(Intent.ACTION_GET_CONTENT);
-                        //startActivityFo
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
                     }
                 });
 
-                 */
-            }
-        });
+
+                    }
+                else {
+                    Toast toast=Toast.makeText(getApplicationContext(),"Te faltan datos en nombre, ingredient i pasos",Toast.LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show();
+                }
+                }
+            });
         btnCancelar = findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,20 +104,14 @@ public class CrearRecetaActivity extends AppCompatActivity {
             popupWindow.dismiss();
         });
     }
-/*
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
-
-
-        //Detects request codes
-        if(requestCode== RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
-            image.setImageURI(selectedImage);
+        if (requestCode == PICK_IMAGE) {
+            Log.d("Si", "Si ho hem aconseguit");
         }
     }
-
- */
 
     @Override
     public void onBackPressed() {
