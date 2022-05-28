@@ -40,40 +40,41 @@ public class CrearRecetaActivity extends AppCompatActivity {
                 new ViewModelProvider(this).get(CrearRecetaViewModel.class);
 
         setContentView(R.layout.creacio_receptes);
+        editTextNombreReceta = findViewById(R.id.editTextNombre);
+        editTextDescripcioReceta = findViewById(R.id.editTextDescripcion);
+        editTextHashtagsReceta = findViewById(R.id.editTextHashtagsReceta);
+        editTextIngredientsReceta = findViewById(R.id.editTextIngredientsReceta);
         btnpublicar = findViewById(R.id.btnpublicar);
+        editTextPasos = findViewById(R.id.editTextPasos);
         btnpublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!(editTextNombreReceta == null && editTextIngredientsReceta == null&& editTextPasos == null)) {
-                    editTextNombreReceta = findViewById(R.id.editTextNombre);
-                    editTextDescripcioReceta = findViewById(R.id.editTextDescripcion);
-                    editTextHashtagsReceta = findViewById(R.id.editTextHashtagsReceta);
+                if (!(editTextNombreReceta.getText().toString().isEmpty() || editTextIngredientsReceta.toString().isEmpty() || editTextPasos.toString().isEmpty())) {
                     ArrayList<String> hashtags = new ArrayList<>(Arrays.asList(editTextHashtagsReceta.getText().toString().split(",")));
-                    editTextIngredientsReceta = findViewById(R.id.editTextIngredientsReceta);
                     ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(editTextIngredientsReceta.getText().toString().split(",")));
-                    editTextPasos = findViewById(R.id.editTextPasos);
+
                     ArrayList<String> pasos = new ArrayList<>(Arrays.asList(editTextPasos.getText().toString().split("\n")));
                     crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients, pasos);
-                buttonFoto = findViewById(R.id.buttonFoto);
-                buttonFoto.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-                    }
-                });
-
-
-                    }
+                }
                 else {
                     Toast toast=Toast.makeText(getApplicationContext(),"Te faltan datos en nombre, ingredient i pasos",Toast.LENGTH_SHORT);
                     toast.setMargin(50,50);
                     toast.show();
                 }
+
                 }
             });
+        buttonFoto = findViewById(R.id.buttonFoto);
+        buttonFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
+        });
+        //image.getImageUri
         btnCancelar = findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +111,7 @@ public class CrearRecetaActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE) {
             Log.d("Si", "Si ho hem aconseguit");
+            image.setImageURI(data.getData());
         }
     }
 
