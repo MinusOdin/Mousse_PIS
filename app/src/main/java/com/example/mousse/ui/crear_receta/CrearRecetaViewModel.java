@@ -39,6 +39,7 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
         return mToast;
     }
 
+
     @Override
     public void setCollection(ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);

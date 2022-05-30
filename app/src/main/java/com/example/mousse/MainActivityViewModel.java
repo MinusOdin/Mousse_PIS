@@ -34,8 +34,8 @@ public class MainActivityViewModel extends AndroidViewModel implements DatabaseA
         return mRecetas.getValue().get(idx);
     }
 
-    public void addReceta(String name, String descripcion, String email, ArrayList<String> hashtags, ArrayList<String> ingredientes ,ArrayList<String> pasos){
-        Receta receta = new Receta(name, descripcion, email, hashtags, ingredientes , pasos);
+    public void addReceta(String id, String name, String descripcion, String email, ArrayList<String> hashtags, ArrayList<String> ingredientes ,ArrayList<String> pasos){
+        Receta receta = new Receta(id, name, descripcion, email, hashtags, ingredientes , pasos);
         if (receta != null) {
             ArrayList<Receta> v = mRecetas.getValue();
             v.add(receta);

@@ -45,7 +45,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="#00FFFFFF"
-                        app:srcCompat="@android:drawable/btn_star_big_on" />
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/fav_sin" />
 
                 </LinearLayout>
             </FrameLayout>
