@@ -30,6 +30,11 @@ public class EditarPerfilViewModel extends ViewModel implements DatabaseAdapter.
     }
 
     @Override
+    public void setCollection2(ArrayList<Receta> recetas) {
+
+    }
+
+    @Override
     public void setToast(String t) {
 
     }

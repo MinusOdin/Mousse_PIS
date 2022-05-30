@@ -26,6 +26,9 @@ public class RecetaActivity extends AppCompatActivity {
     private RecetaViewModel recetaViewModel;
     private Boolean isFav;
     private Boolean empezar = false;
+    private ImageButton like;
+    private Boolean isLike;
+    private Boolean empezar2 = false;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -61,6 +64,14 @@ public class RecetaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 recetaViewModel.is_fav();
+            }
+        });
+        like = findViewById(R.id.imageButtonLike);
+        recetaViewModel.is_like();
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recetaViewModel.is_like();
             }
         });
         setLiveDataObservers();
@@ -105,5 +116,34 @@ public class RecetaActivity extends AppCompatActivity {
         recetaViewModel.getToast().observe(this, observerToast);
 
          */
+
+        recetaViewModel.getRecetas2().observe(this, new Observer<ArrayList<Receta>>() {
+            @Override
+            public void onChanged(ArrayList<Receta> recetas) {
+                isLike = false;
+                for (Receta r: recetas){
+                    if (r.getId().equals(receta.getId())){
+                        isLike = true;
+                    }
+                }
+                if (empezar2) {
+                    if (isLike) {
+                        like.setImageResource(R.drawable.like_sin);
+                        recetaViewModel.no_like(receta.getId());
+                    } else {
+                        like.setImageResource(R.drawable.like_con);
+                        recetaViewModel.guardar_like(receta.getId());
+                    }
+                }
+                else{
+                    if (!isLike) {
+                        like.setImageResource(R.drawable.like_sin);
+                    } else {
+                        like.setImageResource(R.drawable.like_con);
+                    }
+                }
+                empezar2 = true;
+            }
+        });
     }
 }

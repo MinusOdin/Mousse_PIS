@@ -40,6 +40,15 @@
                         android:textSize="20sp" />
 
                     <ImageButton
+                        android:id="@+id/imageButtonLike"
+                        android:layout_width="13dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="#00FFFFFF"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/like_sin" />
+
+                    <ImageButton
                         android:id="@+id/imageButtonFav"
                         android:layout_width="13dp"
                         android:layout_height="wrap_content"

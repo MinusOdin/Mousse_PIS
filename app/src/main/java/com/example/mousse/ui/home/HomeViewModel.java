@@ -44,6 +44,11 @@ public class HomeViewModel extends ViewModel implements DatabaseAdapter.vmInterf
         mRecetas.setValue(recetas);
     }
 
+    @Override
+    public void setCollection2(ArrayList<Receta> recetas) {
+
+    }
+
     public void setToast(String t) {
         mToast.setValue(t);
     }

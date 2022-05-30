@@ -48,6 +48,11 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
     }
 
     @Override
+    public void setCollection2(ArrayList<Receta> recetas) {
+
+    }
+
+    @Override
     public void setToast(String t) {
         mToast.setValue(t);
     }

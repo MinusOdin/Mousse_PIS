@@ -55,6 +55,11 @@ public class MainActivityViewModel extends AndroidViewModel implements DatabaseA
         mRecetas.setValue(recetas);
     }
 
+    @Override
+    public void setCollection2(ArrayList<Receta> recetas) {
+
+    }
+
     public void setToast(String t) {
         mToast.setValue(t);
     }

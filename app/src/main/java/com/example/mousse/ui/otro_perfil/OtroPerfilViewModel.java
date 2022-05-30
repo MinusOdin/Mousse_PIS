@@ -54,6 +54,11 @@ public class OtroPerfilViewModel extends ViewModel implements DatabaseAdapter.vm
         mRecetas.setValue(recetas);
     }
 
+    @Override
+    public void setCollection2(ArrayList<Receta> recetas) {
+
+    }
+
     public void setToast(String t) {
         mToast.setValue(t);
     }
