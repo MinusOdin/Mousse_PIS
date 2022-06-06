@@ -44,7 +44,7 @@ public class CrearRecetaActivity extends AppCompatActivity {
         btnpublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!(editTextNombreReceta == null && editTextIngredientsReceta == null&& editTextPasos == null)) {
+                if (!(editTextNombreReceta == null && editTextIngredientsReceta == null && editTextPasos == null)) {
                     editTextNombreReceta = findViewById(R.id.editTextNombre);
                     editTextDescripcioReceta = findViewById(R.id.editTextDescripcion);
                     editTextHashtagsReceta = findViewById(R.id.editTextHashtagsReceta);

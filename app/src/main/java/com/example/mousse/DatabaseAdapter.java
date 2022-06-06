@@ -51,6 +51,7 @@ public class DatabaseAdapter extends Activity {
     public interface vmInterface{
         void setCollection(ArrayList<Receta> recetas);
         void setCollection2(ArrayList<Receta> recetas);
+        void setCollection3(ArrayList<Receta> recetas);
         void setToast(String t);
         void setSuccesfull(boolean succesfull );
     }
@@ -466,6 +467,78 @@ public class DatabaseAdapter extends Activity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.getString("Receta").equals(id) && document.getString("user").equals(Usuario.getCurrentUserEmail())){
                                     db.collection("Recetas_Like").document(document.getId()).delete();
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+    }
+
+    public void guardar_receta_hecho(String id) {
+        Map<String, Object> note = new HashMap<>();
+        note.put("Receta", id);
+        note.put("user", Usuario.getCurrentUserEmail());
+
+        Log.d(TAG, "saveDocument");
+        // Add a new document with a generated ID
+        db.collection("Recetas_Hecho")
+                .add(note)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        listener.setToast("Pubication succed.");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                        listener.setToast("Pubication failed.");
+                    }
+                });
+    }
+
+    public void isHecho() {
+        Log.d(TAG, "updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        final boolean[] is_Hecho = {false};
+        String usuario = Usuario.getCurrentUserEmail();
+        DatabaseAdapter.db.collection("Recetas_Hecho")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString("user").equals(usuario)){
+                                    retrieved_recetas.add(new Receta(document.getString("Receta"), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                    is_Hecho[0] = true;
+                                }
+                            }
+                            listener.setCollection3(retrieved_recetas);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void eliminar_hecho(String id){
+        DatabaseAdapter.db.collection("Recetas_Hecho")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString("Receta").equals(id) && document.getString("user").equals(Usuario.getCurrentUserEmail())){
+                                    db.collection("Recetas_Hecho").document(document.getId()).delete();
                                 }
                             }
                         } else {

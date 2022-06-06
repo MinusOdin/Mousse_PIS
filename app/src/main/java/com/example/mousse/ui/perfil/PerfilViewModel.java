@@ -49,6 +49,11 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
 
     }
 
+    @Override
+    public void setCollection3(ArrayList<Receta> recetas) {
+
+    }
+
     public void setToast(String t) {
         mToast.setValue(t);
     }

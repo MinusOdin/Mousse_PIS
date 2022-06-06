@@ -16,6 +16,7 @@ public class RecetaViewModel extends ViewModel implements DatabaseAdapter.vmInte
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<String> mToast;
     private final MutableLiveData<ArrayList<Receta>> mRecetas2;
+    private final MutableLiveData<ArrayList<Receta>> mRecetas3;
 
 
     public RecetaViewModel() {
@@ -24,6 +25,7 @@ public class RecetaViewModel extends ViewModel implements DatabaseAdapter.vmInte
         da = new DatabaseAdapter(this);
         mRecetas = new MutableLiveData<>();
         mRecetas2 = new MutableLiveData<>();
+        mRecetas3 = new MutableLiveData<>();
     }
 
     public void is_fav(){
@@ -37,6 +39,11 @@ public class RecetaViewModel extends ViewModel implements DatabaseAdapter.vmInte
     @Override
     public void setCollection2(ArrayList<Receta> recetas) {
         mRecetas2.setValue(recetas);
+    }
+
+    @Override
+    public void setCollection3(ArrayList<Receta> recetas) {
+        mRecetas3.setValue(recetas);
     }
 
 
@@ -80,5 +87,21 @@ public class RecetaViewModel extends ViewModel implements DatabaseAdapter.vmInte
 
     public void is_like(){
         da.isLike();
+    }
+
+    public void no_hecho(String id){
+        da.eliminar_hecho(id);
+    }
+
+    public void guardar_hecho(String id){
+        da.guardar_receta_hecho(id);
+    }
+
+    public LiveData<ArrayList<Receta>> getRecetas3(){
+        return mRecetas3;
+    }
+
+    public void is_hecho(){
+        da.isHecho();
     }
 }

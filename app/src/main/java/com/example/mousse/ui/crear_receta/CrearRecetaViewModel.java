@@ -50,6 +50,11 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
 
     }
 
+    @Override
+    public void setCollection3(ArrayList<Receta> recetas) {
+
+    }
+
     public void setToast(String t) {
         mToast.setValue(t);
     }

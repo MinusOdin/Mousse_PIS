@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -29,6 +30,9 @@ public class RecetaActivity extends AppCompatActivity {
     private ImageButton like;
     private Boolean isLike;
     private Boolean empezar2 = false;
+    private ToggleButton hecho;
+    private Boolean isHecho;
+    private Boolean empezar3 = false;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -72,6 +76,14 @@ public class RecetaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 recetaViewModel.is_like();
+            }
+        });
+        hecho = (ToggleButton) findViewById(R.id.toggleButtonNoHecha);
+        recetaViewModel.is_hecho();
+        hecho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recetaViewModel.is_hecho();
             }
         });
         setLiveDataObservers();
@@ -143,6 +155,29 @@ public class RecetaActivity extends AppCompatActivity {
                     }
                 }
                 empezar2 = true;
+            }
+        });
+
+        recetaViewModel.getRecetas3().observe(this, new Observer<ArrayList<Receta>>() {
+            @Override
+            public void onChanged(ArrayList<Receta> recetas) {
+                isHecho = false;
+                for (Receta r: recetas){
+                    if (r.getId().equals(receta.getId())){
+                        isHecho = true;
+                    }
+                }
+                if (empezar3) {
+                    if (isHecho) {
+                        recetaViewModel.no_hecho(receta.getId());
+                    } else {
+                        recetaViewModel.guardar_hecho(receta.getId());
+                    }
+                }
+                else{
+                        hecho.setChecked(isHecho);
+                }
+                empezar3 = true;
             }
         });
     }

@@ -57,6 +57,11 @@ public class BuscarViewModel extends ViewModel implements DatabaseAdapter.vmInte
     }
 
     @Override
+    public void setCollection3(ArrayList<Receta> recetas) {
+
+    }
+
+    @Override
     public void setToast(String t) {
         mToast.setValue(t);
     }
