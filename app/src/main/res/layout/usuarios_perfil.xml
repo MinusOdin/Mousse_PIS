@@ -18,35 +18,63 @@
             android:background="#FFFFFF"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="202dp">
 
-                <Button
-                    android:id="@+id/editar_perfil"
-                    android:layout_width="107dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Editar perfil"
-                    tools:layout_editor_absoluteX="304dp"
-                    tools:layout_editor_absoluteY="3dp" />
-
-                <ImageView
-                    android:id="@+id/imageView8"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="153dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/editar_perfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Editar perfil"
+                        tools:layout_editor_absoluteX="5dp"
+                        tools:layout_editor_absoluteY="5dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/buttonLogOut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Log Out"
+                            android:textAlignment="center"
+                            tools:layout_editor_absoluteX="310dp"
+                            tools:layout_editor_absoluteY="5dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textEmail"
-                    android:layout_width="134dp"
-                    android:layout_height="30dp"
-                    android:text="email"
-                    android:textSize="20sp"
-                    tools:layout_editor_absoluteX="18dp"
-                    tools:layout_editor_absoluteY="14dp" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="usuario"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="-3dp"
+                    tools:layout_editor_absoluteY="57dp" />
+
+                <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="413dp"
+                        android:layout_height="107dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:layout_editor_absoluteX="-2dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
