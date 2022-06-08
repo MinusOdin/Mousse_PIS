@@ -22,7 +22,7 @@
                 android:layout_height="162dp">
 
                 <ImageView
-                    android:id="@+id/imageView8"
+                    android:id="@+id/imageUser"
                     android:layout_width="300dp"
                     android:layout_height="110dp"
                     android:elevation="0sp"

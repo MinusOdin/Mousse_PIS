@@ -11,56 +11,58 @@ import java.util.ArrayList;
 
 public class OtroPerfilViewModel extends ViewModel implements DatabaseAdapter.vmInterface{
 
-    private final MutableLiveData<ArrayList<Receta>> mRecetas;
+    private final MutableLiveData<ArrayList<Receta>> mRecetasPublicadas;
+    private final MutableLiveData<ArrayList<Receta>> mRecetasHechas;
     private final MutableLiveData<String> mToast;
     private final DatabaseAdapter da;
-    private String email;
 
     public OtroPerfilViewModel() {
-        mRecetas = new MutableLiveData<>();
+        mRecetasPublicadas = new MutableLiveData<>();
+
+        mRecetasHechas = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
         da = new DatabaseAdapter(this);
-        da.getCollectionByUser();
-        email = "";
     }
-    public void init(){
+    public void init(String email){
+        da.getCollectionByUserHecho(email);
         da.getCollectionByUser(email);
     }
 
     //public getter. Not mutable , read-only
-    public LiveData<ArrayList<Receta>> getRecetas(){
-        return mRecetas;
+    public LiveData<ArrayList<Receta>> getRecetasPublicadas(){
+        return mRecetasPublicadas;
+    }
+
+    public LiveData<ArrayList<Receta>> getRecetasHechas(){
+        return mRecetasHechas;
     }
 
     public Receta getReceta(int idx){
-        return mRecetas.getValue().get(idx);
+        return mRecetasPublicadas.getValue().get(idx);
     }
 
     public LiveData<String> getToast(){
         return mToast;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     //communicates user inputs and updates the result in the viewModel
     @Override
-    public void setCollection(ArrayList<Receta> recetas) {
-        mRecetas.setValue(recetas);
+    public void setCollectionPublicadas(ArrayList<Receta> recetas) {
+        mRecetasPublicadas.setValue(recetas);
     }
 
     @Override
-    public void setCollection2(ArrayList<Receta> recetas) {
+    public void setCollectionHechas(ArrayList<Receta> recetas) {
+        mRecetasHechas.setValue(recetas);
+    }
+
+    @Override
+    public void setCollectionLikes(ArrayList<Receta> recetas) {
 
     }
 
     @Override
-    public void setCollection3(ArrayList<Receta> recetas) {
+    public void setCollectionFavs(ArrayList<Receta> recetas) {
 
     }
 

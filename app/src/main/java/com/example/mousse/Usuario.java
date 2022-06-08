@@ -1,5 +1,6 @@
 package com.example.mousse;
 
+import android.net.Uri;
 import android.util.Log;
 
 public class Usuario {
@@ -38,8 +39,4 @@ public class Usuario {
         return contraseña;
     }
 
-    public void saveUsuario() {
-        Log.d("saveUsuario", "saveUsuario-> saveUser");
-        adapter.saveUser(this.email, this.contraseña);
-    }
 }

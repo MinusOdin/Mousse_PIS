@@ -14,19 +14,20 @@ public class Receta implements Parcelable {
     private ArrayList<String> hashtags;
     private String emailUsuario;
     private String descripcion;
-    private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
     private String id;
+    private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
 
     //foto
 
-    public Receta(String id, String nombre,  String descripcion, String emailUsuario, ArrayList<String> hashtags, ArrayList<String> ingredientes, ArrayList<String> pasos) {
+    public Receta(String nombre, String descripcion, String emailUsuario, ArrayList<String> hashtags, ArrayList<String> ingredientes, ArrayList<String> pasos, String id) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.emailUsuario = emailUsuario;
-        this.ingredientes = ingredientes;
         this.hashtags = hashtags;
+        this.ingredientes = ingredientes;
         this.pasos = pasos;
         this.id = id;
+
     }
 
     private Receta(Parcel in) {
@@ -87,11 +88,14 @@ public class Receta implements Parcelable {
         this.hashtags = hashtags;
     }
 
-    public void saveReceta() {
-
-        Log.d("saveReceta", "saveReceta-> saveDocument");
-        adapter.saveReceta(this.nombre, this.descripcion, this.hashtags, this.ingredientes, this.pasos);
+    public String getId() {
+        return id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     @Override
     public int describeContents() {
@@ -114,13 +118,9 @@ public class Receta implements Parcelable {
         parcel.writeString(nombre);
         parcel.writeString(descripcion);
         parcel.writeString(emailUsuario);
-        parcel.writeList(ingredientes);
         parcel.writeList(hashtags);
+        parcel.writeList(ingredientes);
         parcel.writeList(pasos);
         parcel.writeString(id);
-    }
-
-    public String getId() {
-        return id;
     }
 }

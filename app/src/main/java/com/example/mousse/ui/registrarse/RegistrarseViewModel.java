@@ -1,5 +1,6 @@
 package com.example.mousse.ui.registrarse;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -29,8 +30,8 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
         da = new DatabaseAdapter(this);
     }
 
-    public void registrarUsuario(String email, String contraseña) {
-            da.saveUser(email, contraseña);
+    public void registrarUsuario(String email, String contraseña, Uri foto) {
+            da.saveUser(email, contraseña, foto);
 
     }
 
@@ -43,17 +44,22 @@ public class RegistrarseViewModel extends ViewModel implements DatabaseAdapter.v
     }
 
     @Override
-    public void setCollection(  ArrayList<Receta> recetas) {
+    public void setCollectionPublicadas(ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);
     }
 
     @Override
-    public void setCollection2(ArrayList<Receta> recetas) {
+    public void setCollectionHechas(ArrayList<Receta> recetas) {
 
     }
 
     @Override
-    public void setCollection3(ArrayList<Receta> recetas) {
+    public void setCollectionLikes(ArrayList<Receta> recetas) {
+
+    }
+
+    @Override
+    public void setCollectionFavs(ArrayList<Receta> recetas) {
 
     }
 

@@ -76,7 +76,7 @@
                     android:id="@+id/imageViewReceta"
                     android:layout_width="match_parent"
                     android:layout_height="142dp"
-                    app:srcCompat="@android:drawable/ic_menu_camera" />
+                    app:srcCompat="@drawable/plato" />
 
                 <Button
                     android:id="@+id/buttonFoto"

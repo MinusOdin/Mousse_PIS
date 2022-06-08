@@ -1,6 +1,7 @@
 package com.example.mousse;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
     private final TextView textViewNombre;
     private final TextView textViewDescripcion;
     private final LinearLayout linearLayout;
+    private final ImageView recetaImage;
 
     public CustomViewHolder(View view) {
         super(view);
@@ -23,7 +25,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
         textViewNombre = view.findViewById(R.id.textViewIngredientsReceta);
         textViewDescripcion = view.findViewById(R.id.textViewDescripcionReceta);
         linearLayout = view.findViewById(R.id.linearLayout);
-
+        recetaImage = view.findViewById(R.id.fotoRecetaItem);
     }
 
     public TextView getTextViewDescripcion() {
@@ -36,4 +38,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
         return textViewNombre;
     }
 
+    public ImageView getRecetaImage() {
+        return recetaImage;
+    }
 }

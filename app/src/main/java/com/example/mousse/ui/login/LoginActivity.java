@@ -44,7 +44,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 editTextEmail = findViewById(R.id.editTextEmailLogin);
                 editTextContraseña = findViewById(R.id.editTextContraseñaLogin);
-                loginViewModel.loginUsuario(editTextEmail.getText().toString(), editTextContraseña.getText().toString());
+                Log.d("SI", "AJKDSLFÑDJGFDLÑKJSAÑLKFJASLDJ");
+                loginViewModel.loginUsuario(editTextEmail.getText().toString().trim(), editTextContraseña.getText().toString().trim());
+
             }
         });
 

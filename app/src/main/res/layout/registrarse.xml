@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.registrarse.RegistrarseActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="411dp"
+        android:layout_height="730dp"
         android:orientation="vertical"
         android:weightSum="8"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0.5dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Registrarse"
@@ -31,17 +31,25 @@
         <EditText
             android:id="@+id/editTextTextPersonName3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="bottom"
             android:hint="Nombre de Usuario"
             android:inputType="textPersonName" />
 
+        <ImageButton
+            android:id="@+id/imageButtonUserImage"
+            android:layout_width="match_parent"
+            android:layout_height="103dp"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/icono_chef" />
+
         <EditText
             android:id="@+id/editTextTextEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="1.5"
             android:ems="10"
             android:gravity="bottom"
@@ -51,7 +59,7 @@
         <EditText
             android:id="@+id/editTextContraseñaLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_weight="1.5"
             android:ems="10"
             android:gravity="bottom"
@@ -61,18 +69,12 @@
         <EditText
             android:id="@+id/editTextTextPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_weight="1.5"
             android:ems="10"
             android:gravity="bottom"
             android:hint="Repetir Contraseña"
             android:inputType="textPassword" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:orientation="vertical"></LinearLayout>
 
         <Button
             android:id="@+id/btnRegistrarse"

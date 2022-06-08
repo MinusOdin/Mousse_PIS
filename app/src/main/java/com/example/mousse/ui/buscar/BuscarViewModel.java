@@ -47,17 +47,22 @@ public class BuscarViewModel extends ViewModel implements DatabaseAdapter.vmInte
 
 
     @Override
-    public void setCollection(ArrayList<Receta> recetas) {
+    public void setCollectionPublicadas(ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);
     }
 
     @Override
-    public void setCollection2(ArrayList<Receta> recetas) {
+    public void setCollectionHechas(ArrayList<Receta> recetas) {
 
     }
 
     @Override
-    public void setCollection3(ArrayList<Receta> recetas) {
+    public void setCollectionLikes(ArrayList<Receta> recetas) {
+
+    }
+
+    @Override
+    public void setCollectionFavs(ArrayList<Receta> recetas) {
 
     }
 

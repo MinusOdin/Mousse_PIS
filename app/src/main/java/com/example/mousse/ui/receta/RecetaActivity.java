@@ -1,14 +1,22 @@
 package com.example.mousse.ui.receta;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,8 +24,21 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.mousse.CustomAdapter;
 import com.example.mousse.R;
 import com.example.mousse.Receta;
+import com.example.mousse.Usuario;
 import com.example.mousse.ui.otro_perfil.OtroPerfilActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -33,6 +54,11 @@ public class RecetaActivity extends AppCompatActivity {
     private ToggleButton hecho;
     private Boolean isHecho;
     private Boolean empezar3 = false;
+    ImageView recetaImage;
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageReference = storage.getReference();
+
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -41,15 +67,23 @@ public class RecetaActivity extends AppCompatActivity {
                 new ViewModelProvider(this).get(RecetaViewModel.class);
 
         setContentView(R.layout.recepta);
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         receta = (Receta) getIntent().getParcelableExtra("Receta");
         TextView textNomReceta = findViewById(R.id.textNomReceta);
         textNomReceta.setText(receta.getNombre());
         TextView textDescripcion = findViewById(R.id.textDescripcion);
         textDescripcion.setText(receta.getDescripcion());
+
         TextView textHashtags = findViewById(R.id.textHashtags);
         textHashtags.setText("#" + receta.getHashtags().stream().map(Object::toString).collect(Collectors.joining(" #")));
+
         TextView textIngredients = findViewById(R.id.textIngredientes);
         textIngredients.setText(receta.getIngredientes().stream().map(Object::toString).collect(Collectors.joining(", ")));
+
         TextView textPasos = findViewById(R.id.textPasos);
         textPasos.setText(receta.getPasos().stream().map(Object::toString).collect(Collectors.joining("\n")));
         TextView textUsuari = findViewById(R.id.textUsuari);
@@ -62,6 +96,23 @@ public class RecetaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        recetaImage = findViewById(R.id.imageView);
+        StorageReference downRef = storageReference.child("recetas/" + receta.getId() + "/image.jpg" );
+        downRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.d("URL Descargada", uri.toString());
+
+                Bitmap selectedImage = getBitmapFromURL(uri.toString());
+                recetaImage.setImageBitmap(selectedImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                recetaImage.setImageResource(R.drawable.plato);
+            }
+        });
+
         fav = findViewById(R.id.imageButtonFav);
         recetaViewModel.is_fav();
         fav.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +139,7 @@ public class RecetaActivity extends AppCompatActivity {
         });
         setLiveDataObservers();
     }
+
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
         recetaViewModel.getRecetas().observe(this, new Observer<ArrayList<Receta>>() {
@@ -181,4 +233,62 @@ public class RecetaActivity extends AppCompatActivity {
             }
         });
     }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        OutputStream out;
+        File file = new File(getFilename(context));
+
+        try {
+            if (file.createNewFile()) {
+                InputStream iStream = context != null ? context.getContentResolver().openInputStream(contentUri) : context.getContentResolver().openInputStream(contentUri);
+                byte[] inputData = getBytes(iStream);
+                out = new FileOutputStream(file);
+                out.write(inputData);
+                out.close();
+                return file.getAbsolutePath();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
+    private String getFilename(Context context) {
+        File mediaStorageDir = new File(context.getExternalFilesDir(""), "patient_data");
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            mediaStorageDir.mkdirs();
+        }
+
+        String mImageName = "IMG_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        return mediaStorageDir.getAbsolutePath() + "/" + mImageName;
+    }
+
 }

@@ -2,8 +2,8 @@ package com.example.mousse;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -18,8 +18,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,8 @@ public class DatabaseAdapter extends Activity {
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
 
 
 
@@ -42,6 +46,11 @@ public class DatabaseAdapter extends Activity {
         this.listener = listener;
         databaseAdapter = this;
         FirebaseFirestore.setLoggingEnabled(true);
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         initFirebase();
     }
 
@@ -49,9 +58,10 @@ public class DatabaseAdapter extends Activity {
 
 
     public interface vmInterface{
-        void setCollection(ArrayList<Receta> recetas);
-        void setCollection2(ArrayList<Receta> recetas);
-        void setCollection3(ArrayList<Receta> recetas);
+        void setCollectionPublicadas(ArrayList<Receta> recetas);
+        void setCollectionHechas(ArrayList<Receta> recetas);
+        void setCollectionLikes(ArrayList<Receta> recetas);
+        void setCollectionFavs(ArrayList<Receta> recetas);
         void setToast(String t);
         void setSuccesfull(boolean succesfull );
     }
@@ -72,10 +82,10 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_recetas.add(new Receta(document.getId(), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"),
-                                        (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"),
+                                                (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
                             }
-                            listener.setCollection(retrieved_recetas);
+                            listener.setCollectionPublicadas(retrieved_recetas);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -96,13 +106,14 @@ public class DatabaseAdapter extends Activity {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(userEmail.equals(document.getString("user"))){
+                                if(userEmail.equals(document.getString("user"))) {
                                     Log.d(String.valueOf(document.getData()), "oncomplete");
-                                    retrieved_recetas.add(new Receta(document.getId(), document.getString("nombre"), document.getString("descripcion"), userEmail, (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos") ));
+                                    retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), userEmail, (ArrayList<String>) document.get("hashtags"),
+                                                    (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
                                 }
                                 else Log.d(TAG, "miss");
                             }
-                            listener.setCollection(retrieved_recetas);
+                            listener.setCollectionPublicadas(retrieved_recetas);
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -126,11 +137,12 @@ public class DatabaseAdapter extends Activity {
                                 if(email.equals(document.getString("user"))){
                                     Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
                                     Log.d(String.valueOf(document.getData()), "oncomplete");
-                                    retrieved_recetas.add(new Receta(document.getId(), document.getString("nombre"), document.getString("descripcion"), email, (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos") ));
+                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), email, (ArrayList<String>) document.get("hashtags"),
+                                                    (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId() ));
                                 }
                                 else Log.d(TAG, "miss");
                             }
-                            listener.setCollection(retrieved_recetas);
+                            listener.setCollectionPublicadas(retrieved_recetas);
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -140,7 +152,7 @@ public class DatabaseAdapter extends Activity {
     }
 
 
-    public void saveReceta(String nombre, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos) {
+    public void saveReceta(String nombre, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos, Uri foto) {
 
         // Create a new user with a first and last name
         Map<String, Object> note = new HashMap<>();
@@ -151,6 +163,8 @@ public class DatabaseAdapter extends Activity {
         note.put("ingredients", ingredients);
         note.put("pasos", pasos);
 
+
+
         Log.d(TAG, "saveDocument");
         // Add a new document with a generated ID
         db.collection("Recetas")
@@ -159,7 +173,25 @@ public class DatabaseAdapter extends Activity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        listener.setToast("Pubication succed.");
+                        if (foto != null) {
+                            StorageReference fotoRef = storageRef.child("recetas/" + documentReference.getId() + "/image.jpg");
+                            fotoRef.putFile(foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    listener.setToast("Pubication succed.");
+                                    listener.setSuccesfull(true);
+                                }
+
+                                ;
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    listener.setToast("Failed");
+                                    listener.setSuccesfull(false);
+                                }
+                            });
+                        }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -171,11 +203,11 @@ public class DatabaseAdapter extends Activity {
                 });
     }
 
-    public void saveUser( String email, String password) {
+    public void saveUser( String email, String password, Uri foto) {
         Map<String, Object> note = new HashMap<>();
         //note.put("nombre", nombre);
         note.put("email", email);
-        //note.put("foto", uri);
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -184,8 +216,22 @@ public class DatabaseAdapter extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             listener.setToast("Register succed.");
-                            Usuario.setCurrentUser(email, password);
                             db.collection("Usuarios").add(note);
+                            if (foto != null) {
+                                StorageReference fotoRef = storageRef.child("usuario/" + email + "/image.jpg");
+                                fotoRef.putFile(foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        listener.setToast("Pubication succed.");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        listener.setToast("Failed");
+                                    }
+                                });
+                            }
+                            Usuario.setCurrentUser(email, password);
                             listener.setSuccesfull(true);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -206,11 +252,22 @@ public class DatabaseAdapter extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             listener.setToast("Authentication succes.");
-                            Usuario.setCurrentUser(email, password);
+                            StorageReference profileRef = storageRef.child("usuario/" + email + "/image.jpg" );
+                            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Usuario.setCurrentUser(email, password);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Usuario.setCurrentUser(email, password);
+                                }
+                            });
                             listener.setSuccesfull(true);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Log.w(TAG, "signInWithEmail:failure " + email, task.getException());
                             listener.setToast("Authentication failed.");
                             listener.setSuccesfull(false);
                         }
@@ -299,7 +356,7 @@ public class DatabaseAdapter extends Activity {
                                     if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
                                         //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
                                         //Log.d(String.valueOf(document.getData()), "oncomplete");
-                                        retrieved_recetas.add(new Receta(document.getId(), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                        retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), (String) document.getId() ));
                                         afegida[0] = true;
 
                                     } else Log.d(TAG, "miss");
@@ -308,7 +365,7 @@ public class DatabaseAdapter extends Activity {
                                     if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
                                         //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
                                         //Log.d(String.valueOf(document.getData()), "oncomplete");
-                                        retrieved_recetas.add(new Receta(document.getId(), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                        retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), (String) document.getId()));
                                         afegida[0] = true;
                                     } else Log.d(TAG, "miss");
                                 }
@@ -317,7 +374,7 @@ public class DatabaseAdapter extends Activity {
                                 listener.setSuccesfull(false);
                             }
                             else{
-                                listener.setCollection(retrieved_recetas);
+                                listener.setCollectionPublicadas(retrieved_recetas);
                             }
 
                         } else {
@@ -342,13 +399,13 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.getString("user").equals(usuario)){
-                                    retrieved_recetas.add(new Receta(document.getString("Receta"), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
                                     is_fav[0] = true;
                                 }
                             }
                             //if (is_fav[0]){
-                                listener.setCollection(retrieved_recetas);
-                                //listener.setToast("No fav");
+                            listener.setCollectionPublicadas(retrieved_recetas);
+                            //listener.setToast("No fav");
                             //}
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -442,12 +499,12 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.getString("user").equals(usuario)){
-                                    retrieved_recetas.add(new Receta(document.getString("Receta"), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                    retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
                                     is_like[0] = true;
                                 }
                             }
                             //if (is_fav[0]){
-                            listener.setCollection2(retrieved_recetas);
+                            listener.setCollectionHechas(retrieved_recetas);
                             //listener.setToast("No fav");
                             //}
                         } else {
@@ -517,11 +574,11 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.getString("user").equals(usuario)){
-                                    retrieved_recetas.add(new Receta(document.getString("Receta"), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos")));
+                                    retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
                                     is_Hecho[0] = true;
                                 }
                             }
-                            listener.setCollection3(retrieved_recetas);
+                            listener.setCollectionLikes(retrieved_recetas);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -546,10 +603,137 @@ public class DatabaseAdapter extends Activity {
                         }
                     }
                 });
-
     }
 
+    public void getCollectionByUserHecho(String email){
+        Log.d(TAG,"updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        DatabaseAdapter.db.collection("Recetas_Hecho")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<String> idRecetasHechas = new ArrayList<String>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(email.equals(document.getString("user"))){
+                                    Log.d(String.valueOf(document.getData()), "oncomplete");
+                                    idRecetasHechas.add(document.getString("Receta"));
+                                }
+                                else Log.d(TAG, "miss");
+                            }
+                            DatabaseAdapter.db.collection("Recetas")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    if(idRecetasHechas.contains(document.getId()) ){
+                                                        Log.d(String.valueOf(document.getData()), "oncomplete");
+                                                        retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                                    }
+                                                    else Log.d(TAG, "miss");
+                                                }
+                                                listener.setCollectionHechas(retrieved_recetas);
+                                            } else {
+                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void getCollectionByUserLikes(String email){
+        Log.d(TAG,"updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        DatabaseAdapter.db.collection("Recetas_Like")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<String> idRecetasLikes = new ArrayList<String>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(email.equals(document.getString("user"))){
+                                    Log.d(String.valueOf(document.getData()), "oncomplete");
+                                    idRecetasLikes.add(document.getString("Receta"));
+                                }
+                                else Log.d(TAG, "miss");
+                            }
+                            DatabaseAdapter.db.collection("Recetas")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    if(idRecetasLikes.contains(document.getId()) ){
+                                                        Log.d(String.valueOf(document.getData()), "oncomplete");
+                                                        retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                                    }
+                                                    else Log.d(TAG, "miss");
+                                                }
+                                                listener.setCollectionLikes(retrieved_recetas);
+                                            } else {
+                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void getCollectionByUserFav(String email){
+        Log.d(TAG,"updateRecetas: " + user.getUid());
+        Log.d(TAG, user.getUid());
+        DatabaseAdapter.db.collection("Recetas_Fav")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<String> idRecetasFavs = new ArrayList<String>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(email.equals(document.getString("user"))){
+                                    Log.d(String.valueOf(document.getData()), "oncomplete");
+                                    idRecetasFavs.add(document.getString("Receta"));
+                                }
+                                else Log.d(TAG, "miss");
+                            }
+                            DatabaseAdapter.db.collection("Recetas")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    if(idRecetasFavs.contains(document.getId()) ){
+                                                        Log.d(String.valueOf(document.getData()), "oncomplete");
+                                                        retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                                    }
+                                                    else Log.d(TAG, "miss");
+                                                }
+                                                listener.setCollectionFavs(retrieved_recetas);
+                                            } else {
+                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 }
-
-
-

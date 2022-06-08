@@ -34,16 +34,6 @@ public class MainActivityViewModel extends AndroidViewModel implements DatabaseA
         return mRecetas.getValue().get(idx);
     }
 
-    public void addReceta(String id, String name, String descripcion, String email, ArrayList<String> hashtags, ArrayList<String> ingredientes ,ArrayList<String> pasos){
-        Receta receta = new Receta(id, name, descripcion, email, hashtags, ingredientes , pasos);
-        if (receta != null) {
-            ArrayList<Receta> v = mRecetas.getValue();
-            v.add(receta);
-            //Inform observer.
-            mRecetas.setValue(mRecetas.getValue());
-            receta.saveReceta();
-        }
-    }
 
     public LiveData<String> getToast(){
         return mToast;
@@ -51,17 +41,22 @@ public class MainActivityViewModel extends AndroidViewModel implements DatabaseA
 
     //communicates user inputs and updates the result in the viewModel
     @Override
-    public void setCollection(ArrayList<Receta> recetas) {
+    public void setCollectionPublicadas(ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);
     }
 
     @Override
-    public void setCollection2(ArrayList<Receta> recetas) {
+    public void setCollectionHechas(ArrayList<Receta> recetas) {
 
     }
 
     @Override
-    public void setCollection3(ArrayList<Receta> recetas) {
+    public void setCollectionLikes(ArrayList<Receta> recetas) {
+
+    }
+
+    @Override
+    public void setCollectionFavs(ArrayList<Receta> recetas) {
 
     }
 

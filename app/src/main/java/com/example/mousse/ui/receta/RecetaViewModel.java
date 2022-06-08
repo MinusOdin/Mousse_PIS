@@ -32,18 +32,23 @@ public class RecetaViewModel extends ViewModel implements DatabaseAdapter.vmInte
         da.isfav();
     }
 
-    public void setCollection(ArrayList<Receta> recetas) {
+    public void setCollectionPublicadas(ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);
     }
 
     @Override
-    public void setCollection2(ArrayList<Receta> recetas) {
+    public void setCollectionHechas(ArrayList<Receta> recetas) {
         mRecetas2.setValue(recetas);
     }
 
     @Override
-    public void setCollection3(ArrayList<Receta> recetas) {
+    public void setCollectionLikes(ArrayList<Receta> recetas) {
         mRecetas3.setValue(recetas);
+    }
+
+    @Override
+    public void setCollectionFavs(ArrayList<Receta> recetas) {
+
     }
 
 

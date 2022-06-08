@@ -1,12 +1,13 @@
 package com.example.mousse.ui.crear_receta;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mousse.DatabaseAdapter;
 import com.example.mousse.Receta;
-import com.example.mousse.Usuario;
 
 import java.util.ArrayList;
 
@@ -14,11 +15,13 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
 
     private final MutableLiveData<ArrayList<Receta>> mRecetas;
     private final MutableLiveData<String> mToast;
+    private final MutableLiveData<Boolean> mSuccesfull;
     DatabaseAdapter da;
 
     public CrearRecetaViewModel() {
         mRecetas = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
+        mSuccesfull = new MutableLiveData<>();
         da = new DatabaseAdapter(this);
     }
 
@@ -31,8 +34,8 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
         return mRecetas.getValue().get(idx);
     }
 
-    public void addReceta(String name, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos){
-            da.saveReceta(name, descripcion, hashtags, ingredients, pasos);
+    public void addReceta(String name, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos, Uri foto){
+            da.saveReceta(name, descripcion, hashtags, ingredients, pasos, foto);
     }
 
     public LiveData<String> getToast(){
@@ -41,17 +44,22 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
 
 
     @Override
-    public void setCollection(ArrayList<Receta> recetas) {
+    public void setCollectionPublicadas(ArrayList<Receta> recetas) {
         mRecetas.setValue(recetas);
     }
 
     @Override
-    public void setCollection2(ArrayList<Receta> recetas) {
+    public void setCollectionHechas(ArrayList<Receta> recetas) {
 
     }
 
     @Override
-    public void setCollection3(ArrayList<Receta> recetas) {
+    public void setCollectionLikes(ArrayList<Receta> recetas) {
+
+    }
+
+    @Override
+    public void setCollectionFavs(ArrayList<Receta> recetas) {
 
     }
 
@@ -61,6 +69,9 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
 
     @Override
     public void setSuccesfull(boolean succesfull) {
-
+        mSuccesfull.setValue(true);
+    }
+    public LiveData<Boolean> getSuccesfull() {
+        return mSuccesfull;
     }
 }
