@@ -403,10 +403,7 @@ public class DatabaseAdapter extends Activity {
                                     is_fav[0] = true;
                                 }
                             }
-                            //if (is_fav[0]){
-                            listener.setCollectionPublicadas(retrieved_recetas);
-                            //listener.setToast("No fav");
-                            //}
+                            listener.setCollectionFavs(retrieved_recetas);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -503,10 +500,7 @@ public class DatabaseAdapter extends Activity {
                                     is_like[0] = true;
                                 }
                             }
-                            //if (is_fav[0]){
-                            listener.setCollectionHechas(retrieved_recetas);
-                            //listener.setToast("No fav");
-                            //}
+                            listener.setCollectionLikes(retrieved_recetas);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -578,7 +572,7 @@ public class DatabaseAdapter extends Activity {
                                     is_Hecho[0] = true;
                                 }
                             }
-                            listener.setCollectionLikes(retrieved_recetas);
+                            listener.setCollectionHechas(retrieved_recetas);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
