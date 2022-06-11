@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.mousse.MainActivity;
 import com.example.mousse.R;
 import com.example.mousse.ui.crear_receta.CrearRecetaActivity;
+import com.example.mousse.ui.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,6 +33,8 @@ public class RegistrarseActivity extends AppCompatActivity {
     Button btnregistrarse;
     EditText editTextEmail;
     EditText editTextContraseña;
+    EditText editTextContraseña2;
+    EditText editTextNombre;
     ImageButton imageButton;
     Uri foto;
     public static final int PICK_IMAGE = 1;
@@ -59,7 +62,16 @@ public class RegistrarseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 editTextEmail = findViewById(R.id.editTextTextEmail);
                 editTextContraseña = findViewById(R.id.editTextContraseñaLogin);
-                registrarseViewModel.registrarUsuario(editTextEmail.getText().toString(), editTextContraseña.getText().toString(), foto);
+                editTextContraseña2 = findViewById(R.id.editTextContraseñaLogin2);
+                editTextNombre = findViewById(R.id.editTextNombre);
+                if(editTextContraseña.getText().toString().equals(editTextContraseña2.getText().toString())){
+                    registrarseViewModel.registrarUsuario(editTextEmail.getText().toString(), editTextContraseña.getText().toString(), foto, editTextNombre.getText().toString());
+                }else{
+                    Toast toast=Toast.makeText(getApplicationContext(),"Contraseña Erronia",Toast.LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show();
+                }
+
             }
         });
 
@@ -70,6 +82,7 @@ public class RegistrarseActivity extends AppCompatActivity {
                 if(succesfull){
                     Log.d("observerregistrat:dins de lif(registrat)", "Si funciona");
                     Intent intent = new Intent(RegistrarseActivity.this, MainActivity.class);
+                    finish();
                     startActivity(intent);
                 }
                 else {
@@ -136,5 +149,11 @@ public class RegistrarseActivity extends AppCompatActivity {
         String mImageName = "IMG_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
         return mediaStorageDir.getAbsolutePath() + "/" + mImageName;
 
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(RegistrarseActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }

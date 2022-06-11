@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegistrarseActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(Boolean succesfull) {
                 if(succesfull){
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    finish();
                     startActivity(intent);
                 }
                 else {
@@ -65,5 +67,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

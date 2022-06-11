@@ -41,6 +41,7 @@ public class OtroPerfilActivity extends AppCompatActivity {
     private ImageView imageViewUser;
     private String emailUsuario;
     private TabLayout tabLayout;
+    private TextView textEmail;
 
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +51,9 @@ public class OtroPerfilActivity extends AppCompatActivity {
 
 
         emailUsuario = (String) getIntent().getStringExtra("user");
-        TextView textEmail = findViewById(R.id.textEmail);
-        textEmail.setText(emailUsuario);
+        textEmail = findViewById(R.id.textEmail);
+        otroPerfilViewModel.getNombre(emailUsuario);
+
 
         otroPerfilViewModel.init(emailUsuario);
 
@@ -135,7 +137,8 @@ public class OtroPerfilActivity extends AppCompatActivity {
         final Observer<String> observerToast = new Observer<String>() {
             @Override
             public void onChanged(String t) {
-                Toast.makeText(OtroPerfilActivity.this, t, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(OtroPerfilActivity.this, t, Toast.LENGTH_SHORT).show();
+                textEmail.setText(t);
             }
         };
         otroPerfilViewModel.getToast().observe(this, observerToast);

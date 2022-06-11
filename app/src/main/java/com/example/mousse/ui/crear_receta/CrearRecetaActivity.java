@@ -119,7 +119,7 @@ public class CrearRecetaActivity extends AppCompatActivity {
     public void showPopup() {
 
         View popupView = getLayoutInflater().inflate(R.layout.popup_layout, null);
-        PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
+        PopupWindow popupWindow = new PopupWindow(popupView, 800, 350);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable());
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
@@ -153,7 +153,6 @@ public class CrearRecetaActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         showPopup();
-        //super.onBackPressed();
     }
 
     public String getRealPathFromURI(Context context, Uri contentUri) {

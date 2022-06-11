@@ -41,8 +41,8 @@
                 android:id="@+id/foto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="center"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/icono_chef" />
 
         </LinearLayout>
 
@@ -57,22 +57,13 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Nombre usuario" />
+                android:hint="Nombre usuario" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Descripción" />
-        </LinearLayout>
+            android:orientation="vertical"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

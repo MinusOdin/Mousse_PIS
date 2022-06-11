@@ -203,9 +203,9 @@ public class DatabaseAdapter extends Activity {
                 });
     }
 
-    public void saveUser( String email, String password, Uri foto) {
+    public void saveUser( String email, String password, String nombre, Uri foto) {
         Map<String, Object> note = new HashMap<>();
-        //note.put("nombre", nombre);
+        note.put("nombre", nombre);
         note.put("email", email);
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -726,6 +726,78 @@ public class DatabaseAdapter extends Activity {
                                     });
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+    public void getNombre(String usuario){
+        final String[] nombre = {usuario};
+        db.collection("Usuarios")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(document.getString("email").equals(usuario)){
+                                    nombre[0] = document.getString("nombre");
+                                }
+                            }
+                            listener.setToast(nombre[0]);
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void saveDataEditPerfin(String user, Uri foto){
+        db.collection("Usuarios")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(document.getString("email").equals(Usuario.getCurrentUserEmail())){
+                                    db.collection("Usuarios").document(document.getId()).update("nombre", user);
+                                }
+                            }
+                            if (foto != null) {
+                                StorageReference fotoRef = storageRef.child("usuario/" + Usuario.getCurrentUserEmail() + "/image.jpg");
+                                fotoRef.delete();
+                                fotoRef.putFile(foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        listener.setToast("Pubication succed.");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        listener.setToast("Failed");
+                                    }
+                                });
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+    public void saveNameEditPerfil(String user){
+        db.collection("Usuarios")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(document.getString("email").equals(Usuario.getCurrentUserEmail())){
+                                    db.collection("Usuarios").document(document.getId()).update("nombre", user);
+                                }
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });

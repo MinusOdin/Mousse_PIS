@@ -33,6 +33,7 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
     private final MutableLiveData<String> mToast;
     private final DatabaseAdapter da;
 
+
     public PerfilViewModel() {
         mRecetasPublicadas = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
@@ -58,6 +59,7 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
     public void setCollectionTabLike(){
         da.getCollectionByUserLikes(Usuario.getCurrentUserEmail());
     }
+
     public void setCollectionTabFav(){
         da.getCollectionByUserFav(Usuario.getCurrentUserEmail());
     }
@@ -111,6 +113,10 @@ public class PerfilViewModel extends ViewModel implements DatabaseAdapter.vmInte
 
     @Override
     public void setSuccesfull(boolean succesfull) {
+    }
+
+    void getNombre(String usuario){
+        da.getNombre(usuario);
     }
 
 }

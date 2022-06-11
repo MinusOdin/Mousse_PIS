@@ -63,6 +63,7 @@ public class PerfilFragment extends Fragment{
     private ImageView imageViewUser;
     private Button btnLogOut;
     private TextView textEmail;
+    private TextView textNombre;
     private TabLayout tabLayout;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
@@ -99,11 +100,8 @@ public class PerfilFragment extends Fragment{
             }
         });
 
-        textEmail = root.findViewById(R.id.textEmail);
-        textEmail.setText(Usuario.getCurrentUserEmail());
-
-
-
+        textNombre = root.findViewById(R.id.textEmail);
+        viewModel.getNombre(Usuario.getCurrentUserEmail());
         mRecyclerView = root.findViewById(R.id.recyclerViewRecetasUsuario);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()) );
         ArrayList<Receta> recetasPublicadas = viewModel.getRecetasPublicadas().getValue();
@@ -221,7 +219,8 @@ public class PerfilFragment extends Fragment{
         final Observer<String> observerToast = new Observer<String>() {
             @Override
             public void onChanged(String t) {
-                Toast.makeText(root.getContext(), t, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(root.getContext(), t, Toast.LENGTH_SHORT).show();
+                textNombre.setText(t);
             }
         };
         viewModel.getToast().observe(getViewLifecycleOwner(), observerToast);
@@ -235,7 +234,7 @@ public class PerfilFragment extends Fragment{
     public void showPopup() {
 
         View popupView = getLayoutInflater().inflate(R.layout.popup_log_out, null);
-        PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
+        PopupWindow popupWindow = new PopupWindow(popupView, 800, 350);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable());
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
@@ -244,9 +243,9 @@ public class PerfilFragment extends Fragment{
         Button aceptarButton = popupView.findViewById(R.id.aceptar_button);
         aceptarButton.setOnClickListener((v) -> {
             popupWindow.dismiss();
+            getActivity().finish();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
-            getFragmentManager().beginTransaction().remove(this).commit();
         });
         Button cancelarButton = popupView.findViewById(R.id.cancelar_button);
         cancelarButton.setOnClickListener((v) -> {

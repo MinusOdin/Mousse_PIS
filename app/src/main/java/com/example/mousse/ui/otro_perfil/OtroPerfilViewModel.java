@@ -74,4 +74,8 @@ public class OtroPerfilViewModel extends ViewModel implements DatabaseAdapter.vm
     public void setSuccesfull(boolean succesfull) {
     }
 
+    void getNombre(String user){
+        da.getNombre(user);
+    }
+
 }
