@@ -20,99 +20,96 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="1">
 
             <Button
                 android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0"
+                android:layout_weight="0.5"
                 android:text="Cancelar"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnBorrador"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="Guardar borrador"
                 android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnpublicar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0"
+                android:layout_weight="0.5"
                 android:text="Publicar"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/editTextNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="Nombre"
+                android:inputType="textPersonName" />
 
-                <EditText
-                    android:id="@+id/editTextNombre"
+            <EditText
+                android:id="@+id/editTextDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="Descripción"
+                android:inputType="textPersonName" />
+
+            <ImageView
+                android:id="@+id/imageViewReceta"
+                android:layout_width="match_parent"
+                android:layout_height="142dp"
+                android:layout_weight="0.1"
+                app:srcCompat="@drawable/plato" />
+
+            <Button
+                android:id="@+id/buttonFoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:text="Subir Foto" />
+
+            <EditText
+                android:id="@+id/editTextHashtagsReceta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="Hashtags"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextIngredientsReceta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="Ingredientes"
+                android:inputType="textPersonName" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="9.5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPasos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Nombre"
-                    android:inputType="textPersonName" />
+                    android:layout_weight="1"
+                    android:hint="Pasos"
+                    android:textAlignment="viewStart" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editTextDescripcion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Descripción"
-                    android:inputType="textPersonName" />
-
-                <ImageView
-                    android:id="@+id/imageViewReceta"
-                    android:layout_width="match_parent"
-                    android:layout_height="142dp"
-                    app:srcCompat="@drawable/plato" />
-
-                <Button
-                    android:id="@+id/buttonFoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Subir Foto" />
-
-                <EditText
-                    android:id="@+id/editTextHashtagsReceta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Hashtags"
-                    android:inputType="textPersonName" />
-
-                <EditText
-                    android:id="@+id/editTextIngredientsReceta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Ingredientes"
-                    android:inputType="textPersonName" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextPasos"
-                        android:layout_width="match_parent"
-                        android:layout_height="125dp"
-                        android:hint="Pasos" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

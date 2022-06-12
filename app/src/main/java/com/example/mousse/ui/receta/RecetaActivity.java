@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -54,6 +58,7 @@ public class RecetaActivity extends AppCompatActivity {
     private ToggleButton hecho;
     private Boolean isHecho;
     private Boolean empezar3 = false;
+    private ImageButton eliminar;
     ImageView recetaImage;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -137,7 +142,43 @@ public class RecetaActivity extends AppCompatActivity {
                 recetaViewModel.is_hecho();
             }
         });
+
+        eliminar = findViewById(R.id.imageButtonEliminar);
+        if (receta.getPublicada() && receta.getEmailUsuario().equals(Usuario.getCurrentUserEmail())){
+            eliminar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPopup();
+                }
+            });
+        }
+        else{
+            eliminar.setVisibility(View.INVISIBLE);
+        }
+
         setLiveDataObservers();
+    }
+
+    public void showPopup() {
+
+        View popupView = getLayoutInflater().inflate(R.layout.popup_eliminar, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 800, 350);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+
+        // Initialize objects from layout
+        Button aceptarButton = popupView.findViewById(R.id.aceptar_button);
+        aceptarButton.setOnClickListener((v) -> {
+            popupWindow.dismiss();
+            recetaViewModel.eliminar_receta(receta.getId());
+            finish();
+
+        });
+        Button cancelarButton = popupView.findViewById(R.id.cancelar_button);
+        cancelarButton.setOnClickListener((v) -> {
+            popupWindow.dismiss();
+        });
     }
 
     public void setLiveDataObservers() {

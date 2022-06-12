@@ -14,6 +14,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <LinearLayout
+                android:id="@+id/topLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textUsuari"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:text="Usuario"
+                    android:textSize="20sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonEliminar"
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    app:srcCompat="@android:drawable/ic_delete" />
+
+            </LinearLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -21,43 +45,10 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="113dp"
+                    android:layout_height="150dp"
                     app:srcCompat="@drawable/plato"
                     tools:srcCompat="@drawable/plato" />
 
-                <LinearLayout
-                    android:id="@+id/topLinearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="41dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textUsuari"
-                        android:layout_width="235dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Usuario"
-                        android:textSize="20sp" />
-
-                    <ImageButton
-                        android:id="@+id/imageButtonLike"
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#00FFFFFF"
-                        android:scaleType="centerInside"
-                        app:srcCompat="@drawable/like_sin" />
-
-                    <ImageButton
-                        android:id="@+id/imageButtonFav"
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#00FFFFFF"
-                        android:scaleType="centerInside"
-                        app:srcCompat="@drawable/fav_sin" />
-
-                </LinearLayout>
             </FrameLayout>
 
             <LinearLayout
@@ -66,13 +57,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/buttonPasAPas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="Cocinar Paso a Paso"
-                    android:textSize="13dp" />
+                <ImageButton
+                    android:id="@+id/imageButtonLike"
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/like_sin" />
 
                 <ToggleButton
                     android:id="@+id/toggleButtonNoHecha"
@@ -83,27 +75,53 @@
                     android:textOff="No hecha"
                     android:textOn="Hecha"
                     android:textSize="13dp" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonFav"
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/fav_sin" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textNomReceta"
                 android:layout_width="match_parent"
-                android:layout_height="77dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
                 android:text="Nombre de la Receta"
-                android:textSize="30sp" />
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descripcion" />
+                android:text="Descripcion"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textHashtags"
                 android:layout_width="match_parent"
-                android:layout_height="121dp"
+                android:layout_height="wrap_content"
                 android:text="Hashtags"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:id="@+id/ingredientsLinearLayout"
@@ -114,11 +132,16 @@
                 <TextView
                     android:id="@+id/textIngredientes"
                     android:layout_width="match_parent"
-                    android:layout_height="74dp"
+                    android:layout_height="wrap_content"
                     android:text="Ingredientes"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:id="@+id/pasosLinearLayout"
@@ -131,12 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pasos a seguir:"
-                    android:textSize="30sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerPasos"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

@@ -81,9 +81,11 @@ public class DatabaseAdapter extends Activity {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"),
-                                                (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                if (document.getBoolean("publicada")){
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"),
+                                            (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                }
                             }
                             listener.setCollectionPublicadas(retrieved_recetas);
                         } else {
@@ -93,7 +95,7 @@ public class DatabaseAdapter extends Activity {
                 });
     }
 
-    public void getCollectionByUser(){
+    public void getCollectionByUser(Boolean publicada){
         Log.d(TAG,"updateRecetas: " + user.getUid());
         Log.d(TAG, user.getUid());
         String userEmail = Usuario.getCurrentUserEmail();
@@ -106,12 +108,14 @@ public class DatabaseAdapter extends Activity {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(userEmail.equals(document.getString("user"))) {
-                                    Log.d(String.valueOf(document.getData()), "oncomplete");
-                                    retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), userEmail, (ArrayList<String>) document.get("hashtags"),
-                                                    (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                if (document.getBoolean("publicada") == publicada){
+                                    if(userEmail.equals(document.getString("user"))) {
+                                        Log.d(String.valueOf(document.getData()), "oncomplete");
+                                        retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"), document.getString("descripcion"), userEmail, (ArrayList<String>) document.get("hashtags"),
+                                                (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                    }
+                                    else Log.d(TAG, "miss");
                                 }
-                                else Log.d(TAG, "miss");
                             }
                             listener.setCollectionPublicadas(retrieved_recetas);
 
@@ -134,13 +138,15 @@ public class DatabaseAdapter extends Activity {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(email.equals(document.getString("user"))){
-                                    Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
-                                    Log.d(String.valueOf(document.getData()), "oncomplete");
-                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), email, (ArrayList<String>) document.get("hashtags"),
-                                                    (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId() ));
+                                if (document.getBoolean("publicada")){
+                                    if(email.equals(document.getString("user"))){
+                                        Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
+                                        Log.d(String.valueOf(document.getData()), "oncomplete");
+                                        retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"), document.getString("descripcion"), email, (ArrayList<String>) document.get("hashtags"),
+                                                (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId() ));
+                                    }
+                                    else Log.d(TAG, "miss");
                                 }
-                                else Log.d(TAG, "miss");
                             }
                             listener.setCollectionPublicadas(retrieved_recetas);
 
@@ -152,10 +158,11 @@ public class DatabaseAdapter extends Activity {
     }
 
 
-    public void saveReceta(String nombre, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos, Uri foto) {
+    public void saveReceta(Boolean publicada, String nombre, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos, Uri foto) {
 
         // Create a new user with a first and last name
         Map<String, Object> note = new HashMap<>();
+        note.put("publicada", publicada);
         note.put("nombre", nombre);
         note.put("user", Usuario.getCurrentUserEmail()); //
         note.put("descripcion", descripcion);
@@ -351,23 +358,25 @@ public class DatabaseAdapter extends Activity {
 
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                afegida[0] = false;
-                                for (String palabra : (List<String>) document.get("ingredients")){
-                                    if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
-                                        //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
-                                        //Log.d(String.valueOf(document.getData()), "oncomplete");
-                                        retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), (String) document.getId() ));
-                                        afegida[0] = true;
+                                if (document.getBoolean("publicada")){
+                                    afegida[0] = false;
+                                    for (String palabra : (List<String>) document.get("ingredients")){
+                                        if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
+                                            //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
+                                            //Log.d(String.valueOf(document.getData()), "oncomplete");
+                                            retrieved_recetas.add(new Receta(document.getBoolean("publicada"),document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), (String) document.getId() ));
+                                            afegida[0] = true;
 
-                                    } else Log.d(TAG, "miss");
-                                }
-                                for (String palabra : (List<String>) document.get("hashtags")){
-                                    if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
-                                        //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
-                                        //Log.d(String.valueOf(document.getData()), "oncomplete");
-                                        retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), (String) document.getId()));
-                                        afegida[0] = true;
-                                    } else Log.d(TAG, "miss");
+                                        } else Log.d(TAG, "miss");
+                                    }
+                                    for (String palabra : (List<String>) document.get("hashtags")){
+                                        if (busqueda.equalsIgnoreCase(palabra) && !afegida[0]) {           //userEmail.equals(document.getString("user"))
+                                            //Log.d(TAG, document.getId() + " => " + document.get("hashtags").toString());
+                                            //Log.d(String.valueOf(document.getData()), "oncomplete");
+                                            retrieved_recetas.add(new Receta(document.getBoolean("publicada"),document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), (String) document.getId()));
+                                            afegida[0] = true;
+                                        } else Log.d(TAG, "miss");
+                                    }
                                 }
                             }
                             if (retrieved_recetas.isEmpty()){
@@ -399,7 +408,7 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.getString("user").equals(usuario)){
-                                    retrieved_recetas.add(new Receta( document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
+                                    retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
                                     is_fav[0] = true;
                                 }
                             }
@@ -496,7 +505,7 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.getString("user").equals(usuario)){
-                                    retrieved_recetas.add(new Receta(document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
+                                    retrieved_recetas.add(new Receta(document.getBoolean("publicada"),document.getString("nombre"), document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
                                     is_like[0] = true;
                                 }
                             }
@@ -568,7 +577,7 @@ public class DatabaseAdapter extends Activity {
                             ArrayList<Receta> retrieved_recetas = new ArrayList<Receta>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.getString("user").equals(usuario)){
-                                    retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
+                                    retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getString("Receta")));
                                     is_Hecho[0] = true;
                                 }
                             }
@@ -626,7 +635,7 @@ public class DatabaseAdapter extends Activity {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     if(idRecetasHechas.contains(document.getId()) ){
                                                         Log.d(String.valueOf(document.getData()), "oncomplete");
-                                                        retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                                        retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
                                                     }
                                                     else Log.d(TAG, "miss");
                                                 }
@@ -670,7 +679,7 @@ public class DatabaseAdapter extends Activity {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     if(idRecetasLikes.contains(document.getId()) ){
                                                         Log.d(String.valueOf(document.getData()), "oncomplete");
-                                                        retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                                        retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
                                                     }
                                                     else Log.d(TAG, "miss");
                                                 }
@@ -714,7 +723,7 @@ public class DatabaseAdapter extends Activity {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     if(idRecetasFavs.contains(document.getId()) ){
                                                         Log.d(String.valueOf(document.getData()), "oncomplete");
-                                                        retrieved_recetas.add(new Receta( document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
+                                                        retrieved_recetas.add(new Receta(document.getBoolean("publicada"), document.getString("nombre"),  document.getString("descripcion"), document.getString("user"), (ArrayList<String>) document.get("hashtags"), (ArrayList<String>) document.get("ingredients"), (ArrayList<String>) document.get("pasos"), document.getId()));
                                                     }
                                                     else Log.d(TAG, "miss");
                                                 }
@@ -798,6 +807,85 @@ public class DatabaseAdapter extends Activity {
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void eliminar_receta_usuario(String id){
+        DatabaseAdapter.db.collection("Recetas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getId().equals(id) && document.getString("user").equals(Usuario.getCurrentUserEmail())){
+                                    eliminar_receta_hechos(id);
+                                    eliminar_receta_fav(id);
+                                    eliminar_receta_like(id);
+                                    db.collection("Recetas").document(document.getId()).delete();
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void eliminar_receta_hechos(String id){
+        DatabaseAdapter.db.collection("Recetas_Hecho")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString("Receta").equals(id)){
+                                    db.collection("Recetas_Hecho").document(document.getId()).delete();
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void eliminar_receta_like(String id){
+        DatabaseAdapter.db.collection("Recetas_Like")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString("Receta").equals(id)){
+                                    db.collection("Recetas_Like").document(document.getId()).delete();
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void eliminar_receta_fav(String id){
+        DatabaseAdapter.db.collection("Recetas_Fav")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//where usuario es email
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString("Receta").equals(id)){
+                                    db.collection("Recetas_Fav").document(document.getId()).delete();
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });

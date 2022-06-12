@@ -68,61 +68,12 @@
 
                 <ImageView
                     android:id="@+id/imageUser"
-                    android:layout_width="413dp"
-                    android:layout_height="107dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:layout_editor_absoluteX="-2dp"
                     tools:srcCompat="@tools:sample/avatars" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="35dp"
-                        android:layout_height="30dp"
-                        android:adjustViewBounds="false"
-                        app:srcCompat="@drawable/jz22y" />
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="#Likes" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="91dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="35dp"
-                        android:layout_height="30dp"
-                        android:adjustViewBounds="false"
-                        app:srcCompat="@android:drawable/ic_menu_send" />
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="#Seguidores" />
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -140,27 +91,23 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_dashboard_black_24dp" />
+                android:icon="@android:drawable/ic_menu_upload" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hechas" />
+                android:icon="@drawable/espatula" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Likes" />
+                android:icon="@drawable/like_con" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Favs" />
+                android:icon="@drawable/fav" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Borradores" />
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

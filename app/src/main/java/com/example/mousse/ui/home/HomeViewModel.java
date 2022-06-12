@@ -22,7 +22,7 @@ public class HomeViewModel extends ViewModel implements DatabaseAdapter.vmInterf
         da.getCollection10();
     }
     public void init(){
-        da.getCollectionByUser();
+        da.getCollection10();
     }
 
     //public getter. Not mutable , read-only

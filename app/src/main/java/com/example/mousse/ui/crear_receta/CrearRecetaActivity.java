@@ -62,6 +62,7 @@ public class CrearRecetaActivity extends AppCompatActivity {
         editTextPasos = findViewById(R.id.editTextPasos);
         btnpublicar = findViewById(R.id.btnpublicar);
 
+
         image = findViewById(R.id.imageViewReceta);
 
         btnpublicar.setOnClickListener(new View.OnClickListener() {
@@ -71,14 +72,14 @@ public class CrearRecetaActivity extends AppCompatActivity {
                     ArrayList<String> hashtags = new ArrayList<>(Arrays.asList(editTextHashtagsReceta.getText().toString().split(",")));
                     ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(editTextIngredientsReceta.getText().toString().split(",")));
                     ArrayList<String> pasos = new ArrayList<>(Arrays.asList(editTextPasos.getText().toString().split("\n")));
-                    crearRecetaViewModel.addReceta(editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients, pasos, foto);
+                    crearRecetaViewModel.addReceta(true, editTextNombreReceta.getText().toString(), editTextDescripcioReceta.getText().toString(), hashtags, ingredients, pasos, foto);
                 }
                 else {
                     Toast toast=Toast.makeText(getApplicationContext(),"Te faltan datos en nombre, ingredient i pasos",Toast.LENGTH_SHORT);
                     toast.setMargin(50,50);
                     toast.show();
                 }
-
+                finish();
                 }
             });
         crearRecetaViewModel.getSuccesfull().observe(this, new Observer<Boolean>() {

@@ -26,7 +26,8 @@
         <EditText
             android:id="@+id/editTextContraseñaLogin"
             android:layout_width="match_parent"
-            android:layout_height="121dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10"
             android:hint="Contrasenya"
             android:inputType="textPassword" />
@@ -41,7 +42,8 @@
         <Button
             android:id="@+id/btnRegistrarse"
             android:layout_width="match_parent"
-            android:layout_height="188dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Resgistrarse" />
 
     </LinearLayout>

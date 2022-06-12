@@ -108,4 +108,8 @@ public class RecetaViewModel extends ViewModel implements DatabaseAdapter.vmInte
     public void is_hecho(){
         da.isHecho();
     }
+
+    public void eliminar_receta(String id) {
+        da.eliminar_receta_usuario(id);
+    }
 }

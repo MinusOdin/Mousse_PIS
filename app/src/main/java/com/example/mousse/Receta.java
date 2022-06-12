@@ -15,11 +15,13 @@ public class Receta implements Parcelable {
     private String emailUsuario;
     private String descripcion;
     private String id;
+    private Boolean publicada;
     private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
 
     //foto
 
-    public Receta(String nombre, String descripcion, String emailUsuario, ArrayList<String> hashtags, ArrayList<String> ingredientes, ArrayList<String> pasos, String id) {
+    public Receta(Boolean publicada, String nombre, String descripcion, String emailUsuario, ArrayList<String> hashtags, ArrayList<String> ingredientes, ArrayList<String> pasos, String id) {
+        this.publicada = publicada;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.emailUsuario = emailUsuario;
@@ -38,6 +40,7 @@ public class Receta implements Parcelable {
         this.ingredientes = in.readArrayList(null);
         this.pasos = in.readArrayList(null);
         this.id = in.readString();
+        this.publicada = in.readInt() == 1;
     }
 
     public ArrayList<String> getPasos() {
@@ -96,6 +99,9 @@ public class Receta implements Parcelable {
         this.id = id;
     }
 
+    public Boolean getPublicada() {
+        return publicada;
+    }
 
     @Override
     public int describeContents() {
@@ -122,5 +128,6 @@ public class Receta implements Parcelable {
         parcel.writeList(ingredientes);
         parcel.writeList(pasos);
         parcel.writeString(id);
+        parcel.writeInt(publicada ? 1:0);
     }
 }

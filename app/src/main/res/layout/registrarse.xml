@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Registrarse"
@@ -31,7 +31,7 @@
         <EditText
             android:id="@+id/editTextNombre"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="bottom"
@@ -49,8 +49,8 @@
         <EditText
             android:id="@+id/editTextTextEmail"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.25"
             android:ems="10"
             android:gravity="bottom"
             android:hint="Correo Electrónico"
@@ -59,7 +59,7 @@
         <EditText
             android:id="@+id/editTextContraseñaLogin"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:ems="10"
             android:gravity="bottom"
@@ -69,7 +69,7 @@
         <EditText
             android:id="@+id/editTextContraseñaLogin2"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:ems="10"
             android:gravity="bottom"
