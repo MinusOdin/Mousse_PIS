@@ -30,19 +30,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class RegistrarseActivity extends AppCompatActivity {
-    Button btnregistrarse;
-    EditText editTextEmail;
-    EditText editTextContraseña;
-    EditText editTextContraseña2;
-    EditText editTextNombre;
-    ImageButton imageButton;
-    Uri foto;
+    private Button btnregistrarse;
+    private EditText editTextEmail;
+    private EditText editTextContraseña;
+    private EditText editTextContraseña2;
+    private EditText editTextNombre;
+    private ImageButton imageButton;
+    private Uri foto;
     public static final int PICK_IMAGE = 1;
+    private RegistrarseViewModel registrarseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RegistrarseViewModel registrarseViewModel =
+        registrarseViewModel =
                 new ViewModelProvider(this).get(RegistrarseViewModel.class);
 
         setContentView(R.layout.registrarse);

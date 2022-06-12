@@ -181,6 +181,10 @@ public class RecetaActivity extends AppCompatActivity {
         });
     }
 
+    protected void onStart(){
+        super.onStart();
+    }
+
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
         recetaViewModel.getRecetas().observe(this, new Observer<ArrayList<Receta>>() {

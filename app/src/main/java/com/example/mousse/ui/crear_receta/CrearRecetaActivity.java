@@ -36,22 +36,23 @@ import java.util.Arrays;
 
 public class CrearRecetaActivity extends AppCompatActivity {
 
-    EditText editTextNombreReceta;
-    EditText editTextDescripcioReceta;
-    EditText editTextHashtagsReceta;
-    EditText editTextIngredientsReceta;
-    TextInputEditText editTextPasos;
-    Button btnpublicar;
-    Button btnCancelar;
-    Button buttonFoto;
-    ImageView image;
-    Uri foto;
+    private EditText editTextNombreReceta;
+    private EditText editTextDescripcioReceta;
+    private EditText editTextHashtagsReceta;
+    private EditText editTextIngredientsReceta;
+    private TextInputEditText editTextPasos;
+    private Button btnpublicar;
+    private Button btnCancelar;
+    private Button buttonFoto;
+    private ImageView image;
+    private Uri foto;
+    private CrearRecetaViewModel crearRecetaViewModel;
 
     public static final int PICK_IMAGE = 1;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CrearRecetaViewModel crearRecetaViewModel =
+        crearRecetaViewModel =
                 new ViewModelProvider(this).get(CrearRecetaViewModel.class);
 
         setContentView(R.layout.creacio_receptes);

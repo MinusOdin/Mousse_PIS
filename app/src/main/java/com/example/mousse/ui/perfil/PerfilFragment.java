@@ -65,17 +65,18 @@ public class PerfilFragment extends Fragment{
     private TextView textEmail;
     private TextView textNombre;
     private TabLayout tabLayout;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReference();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageReference = storage.getReference();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
-        viewModel.init();
+
 
         View root = inflater.inflate(R.layout.usuarios_perfil, container, false);
 
+        viewModel.init();
 
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
@@ -171,6 +172,15 @@ public class PerfilFragment extends Fragment{
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        viewModel.init();
+        ArrayList<Receta> recetasPublicadas = viewModel.getRecetasPublicadas().getValue();
+        CustomAdapter newAdapterPub = new CustomAdapter(getActivity(), recetasPublicadas);
+        mRecyclerView.setAdapter(newAdapterPub);
+    }
+
     public static Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL(src);
@@ -224,6 +234,9 @@ public class PerfilFragment extends Fragment{
             }
         };
         viewModel.getToast().observe(getViewLifecycleOwner(), observerToast);
+        ArrayList<Receta> recetasPublicadas = viewModel.getRecetasPublicadas().getValue();
+        CustomAdapter newAdapterPub = new CustomAdapter(getActivity(), recetasPublicadas);
+        mRecyclerView.setAdapter(newAdapterPub);
     }
 
     @Override
