@@ -30,10 +30,6 @@ public class HomeViewModel extends ViewModel implements DatabaseAdapter.vmInterf
         return mRecetas;
     }
 
-    public Receta getReceta(int idx){
-        return mRecetas.getValue().get(idx);
-    }
-
     public LiveData<String> getToast(){
         return mToast;
     }

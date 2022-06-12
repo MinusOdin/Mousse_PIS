@@ -37,10 +37,6 @@ public class OtroPerfilViewModel extends ViewModel implements DatabaseAdapter.vm
         return mRecetasHechas;
     }
 
-    public Receta getReceta(int idx){
-        return mRecetasPublicadas.getValue().get(idx);
-    }
-
     public LiveData<String> getToast(){
         return mToast;
     }

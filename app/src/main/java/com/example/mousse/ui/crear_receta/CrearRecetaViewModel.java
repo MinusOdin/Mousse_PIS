@@ -34,8 +34,8 @@ public class CrearRecetaViewModel extends ViewModel implements DatabaseAdapter.v
         return mRecetas.getValue().get(idx);
     }
 
-    public void addReceta(Boolean publicada, String name, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos, Uri foto){
-            da.saveReceta(publicada, name, descripcion, hashtags, ingredients, pasos, foto);
+    public void addReceta(String name, String descripcion, ArrayList<String> hashtags, ArrayList<String> ingredients, ArrayList<String> pasos, Uri foto){
+            da.saveReceta(name, descripcion, hashtags, ingredients, pasos, foto);
     }
 
     public LiveData<String> getToast(){
