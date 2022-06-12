@@ -41,8 +41,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     private final ArrayList<Receta> localDataSet;
     private final Context parentContext;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReference();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageReference = storage.getReference();
 
     /**
      * Initialize the dataset of the Adapter.

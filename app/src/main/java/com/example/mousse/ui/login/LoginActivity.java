@@ -17,15 +17,16 @@ import com.example.mousse.R;
 import com.example.mousse.ui.registrarse.RegistrarseActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btnregistrarse;
-    Button btnlogin;
-    EditText editTextEmail;
-    EditText editTextContraseña;
+    private Button btnregistrarse;
+    private Button btnlogin;
+    private EditText editTextEmail;
+    private EditText editTextContraseña;
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LoginViewModel loginViewModel =
+        loginViewModel =
                 new ViewModelProvider(this).get(LoginViewModel.class);
 
         setContentView(R.layout.login);

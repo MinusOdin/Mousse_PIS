@@ -45,10 +45,10 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private ImageButton btnGuardar;
     private ImageButton btnFoto;
     private EditText editTextNombre;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReference();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageReference = storage.getReference();
     private EditarPerfilViewModel loginViewModel;
-    Uri foto;
+    private Uri foto;
     public static final int PICK_IMAGE = 1;
 
 
