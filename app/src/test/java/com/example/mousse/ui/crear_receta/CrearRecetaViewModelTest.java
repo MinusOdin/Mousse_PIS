@@ -46,8 +46,10 @@ public class CrearRecetaViewModelTest {
 
     @Test
     public void addReceta() {
-
-
+        ArrayList<String> strings = new ArrayList<>();
+        doNothing().when(crearRecetaViewModel).addReceta(true, "test", "test", strings, strings, strings,null);
+        crearRecetaViewModel.addReceta(true, "test", "test", strings, strings, strings,null);
+        verify(crearRecetaViewModel, times(1)).addReceta(true, "test", "test", strings, strings, strings,null);
     }
 
     @Test
